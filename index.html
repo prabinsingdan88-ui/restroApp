@@ -3,191 +3,514 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🍽️ RestaurantOS Pro - Complete Management System</title>
+    <title>🍽️ RestaurantOS Enterprise - Complete Restaurant Management System</title>
     
-    <!-- Bootstrap CSS -->
+    <!-- Core Dependencies -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- DataTables -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-    <!-- Animate.css -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <!-- Advanced UI Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css">
+    
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.4/jquery-confirm.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     
     <style>
+        /* ========== CORE STYLES ========== */
         :root {
             --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --primary-light: #5a74f0;
             --secondary: #3f37c9;
             --success: #4cc9f0;
             --danger: #f72585;
             --warning: #f8961e;
             --info: #7209b7;
-            --kitchen: #f72585;
-            --waiter: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --gray-light: #e9ecef;
+            --border: #dee2e6;
+            --shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+            --radius: 0.375rem;
+            --radius-lg: 0.5rem;
+            --radius-xl: 1rem;
+            --transition: all 0.3s ease;
+        }
+        
+        [data-theme="dark"] {
+            --primary: #5a74f0;
+            --primary-dark: #4361ee;
+            --primary-light: #7a90f2;
+            --secondary: #4f46e5;
+            --light: #1a1a2e;
+            --dark: #f8f9fa;
+            --gray: #adb5bd;
+            --gray-light: #2d3748;
+            --border: #374151;
+            --shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.4);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
-            margin: 0;
-            padding: 0;
             overflow-x: hidden;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--dark);
+            transition: var(--transition);
         }
         
-        .main-container {
-            background: white;
+        .app-container {
+            display: flex;
             min-height: 100vh;
-            border-radius: 0;
-            box-shadow: 0 0 50px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
         }
         
-        /* Sidebar */
+        /* ========== SIDEBAR ========== */
         .sidebar {
+            width: 280px;
             background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
             color: white;
-            min-height: 100vh;
-            padding: 0;
+            display: flex;
+            flex-direction: column;
             position: fixed;
-            width: 280px;
+            height: 100vh;
             z-index: 1000;
-            box-shadow: 3px 0 20px rgba(0,0,0,0.2);
+            box-shadow: 3px 0 20px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
             overflow-y: auto;
         }
         
-        .main-content-area {
-            margin-left: 280px;
-            width: calc(100% - 280px);
-            transition: all 0.3s ease;
+        .sidebar.collapsed {
+            width: 80px;
         }
         
-        @media (max-width: 1200px) {
-            .sidebar {
-                width: 80px;
-            }
-            .main-content-area {
-                margin-left: 80px;
-                width: calc(100% - 80px);
-            }
-            .nav-link span {
-                display: none;
-            }
-            .sidebar .restaurant-name {
-                display: none;
-            }
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
         
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 0;
-                transform: translateX(-100%);
-            }
-            .sidebar.active {
-                width: 280px;
-                transform: translateX(0);
-            }
-            .main-content-area {
-                margin-left: 0;
-                width: 100%;
-            }
-            .mobile-menu-btn {
-                display: block !important;
-            }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        
+        .logo-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 1;
+            transition: var(--transition);
+        }
+        
+        .sidebar.collapsed .logo-text {
+            opacity: 0;
+            width: 0;
+            overflow: hidden;
+        }
+        
+        .sidebar-toggle {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .sidebar-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(180deg);
+        }
+        
+        .sidebar-menu {
+            flex: 1;
+            padding: 1rem 0;
+            overflow-y: auto;
+        }
+        
+        .menu-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .menu-group-title {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.5);
+            opacity: 1;
+            transition: var(--transition);
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        
+        .sidebar.collapsed .menu-group-title {
+            opacity: 0;
+            width: 0;
+        }
+        
+        .nav-item {
+            margin: 0.25rem 0.75rem;
         }
         
         .nav-link {
-            color: #adb5bd;
-            padding: 18px 25px;
-            border-left: 4px solid transparent;
-            transition: all 0.3s;
-            cursor: pointer;
-            display: block;
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
-            white-space: nowrap;
-            margin: 5px 15px;
-            border-radius: 10px;
-            font-size: 15px;
+            border-radius: 8px;
+            transition: var(--transition);
             position: relative;
+            white-space: nowrap;
         }
         
         .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
             color: white;
-            background: rgba(255,255,255,0.1);
-            border-left-color: var(--primary);
             transform: translateX(5px);
         }
         
         .nav-link.active {
-            color: white;
-            background: rgba(67, 97, 238, 0.2);
-            border-left-color: var(--primary);
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
-        }
-        
-        .nav-link i {
-            width: 25px;
-            text-align: center;
-            margin-right: 15px;
-            font-size: 18px;
-        }
-        
-        .nav-badge {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--danger);
-            color: white;
-            border-radius: 10px;
-            padding: 2px 8px;
-            font-size: 11px;
-            min-width: 20px;
-            text-align: center;
-        }
-        
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            border-bottom: 1px solid #e9ecef;
-            padding: 15px 30px;
-            position: sticky;
-            top: 0;
-            z-index: 999;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            backdrop-filter: blur(10px);
-        }
-        
-        .user-profile {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+        }
+        
+        .nav-icon {
+            width: 24px;
+            height: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 3px solid rgba(255,255,255,0.3);
+            font-size: 1.125rem;
+            margin-right: 0.75rem;
+            flex-shrink: 0;
         }
         
-        .user-profile:hover {
-            transform: scale(1.1);
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
+        .sidebar.collapsed .nav-icon {
+            margin-right: 0;
+        }
+        
+        .nav-text {
+            flex: 1;
+            opacity: 1;
+            transition: var(--transition);
+        }
+        
+        .sidebar.collapsed .nav-text {
+            opacity: 0;
+            width: 0;
+            overflow: hidden;
+        }
+        
+        .nav-badge {
+            background: var(--danger);
+            color: white;
+            font-size: 0.75rem;
+            padding: 0.125rem 0.5rem;
+            border-radius: 10px;
+            min-width: 20px;
+            text-align: center;
+            opacity: 1;
+            transition: var(--transition);
+        }
+        
+        .sidebar.collapsed .nav-badge {
+            opacity: 0;
+            width: 0;
+            padding: 0;
+        }
+        
+        .sidebar-footer {
+            padding: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .user-info {
+            flex: 1;
+            opacity: 1;
+            transition: var(--transition);
+            overflow: hidden;
+        }
+        
+        .sidebar.collapsed .user-info {
+            opacity: 0;
+            width: 0;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .user-role {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        /* ========== MAIN CONTENT ========== */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            transition: var(--transition);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .sidebar.collapsed + .main-content {
+            margin-left: 80px;
+        }
+        
+        /* ========== TOP BAR ========== */
+        .top-bar {
+            background: white;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 0;
+        }
+        
+        .top-bar-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .search-box {
+            position: relative;
+        }
+        
+        .search-input {
+            width: 300px;
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            transition: var(--transition);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+        
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: white;
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .action-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger);
+            color: white;
+            font-size: 0.625rem;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .theme-toggle {
+            position: relative;
+        }
+        
+        .theme-toggle input {
+            display: none;
+        }
+        
+        .theme-toggle label {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--gray-light);
+            color: var(--gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .theme-toggle label:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .theme-toggle input:checked + label {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* ========== CONTENT AREA ========== */
+        .content-area {
+            flex: 1;
+            padding: 1.5rem;
+            background: #f8fafc;
+            overflow-y: auto;
+        }
+        
+        .content-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+        
+        .content-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin: 0;
+        }
+        
+        .card-subtitle {
+            font-size: 0.875rem;
+            color: var(--gray);
+            margin-top: 0.25rem;
+        }
+        
+        /* ========== DASHBOARD ========== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
         
         .stat-card {
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            transition: all 0.3s;
-            cursor: default;
-            border: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: var(--transition);
             position: relative;
             overflow: hidden;
         }
@@ -203,24 +526,58 @@
         }
         
         .stat-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+        
+        .stat-icon.primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+        }
+        
+        .stat-icon.success {
+            background: linear-gradient(135deg, #28a745, #20c997);
+        }
+        
+        .stat-icon.warning {
+            background: linear-gradient(135deg, #ffc107, #fd7e14);
+        }
+        
+        .stat-icon.danger {
+            background: linear-gradient(135deg, #dc3545, #fd7e14);
         }
         
         .stat-value {
-            font-size: 2.2em;
-            font-weight: 800;
-            color: var(--primary);
-            margin: 10px 0;
-            font-family: 'Segoe UI', system-ui;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.25rem;
+        }
+        
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
         }
         
         .stat-change {
-            font-size: 0.85em;
-            padding: 3px 10px;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
             border-radius: 20px;
-            display: inline-block;
-            margin-top: 5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
         }
         
         .stat-change.positive {
@@ -233,3138 +590,591 @@
             color: #dc3545;
         }
         
-        /* Main Content */
-        .main-content {
-            padding: 25px;
-            min-height: calc(100vh - 90px);
-            background: #f8fafc;
-        }
-        
-        .section-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        .section-content.active {
-            display: block;
-        }
-        
-        /* ========== WAITER MODE STYLES ========== */
-        .waiter-mode {
-            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-        }
-        
-        .tables-grid-waiter {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 25px;
-            margin-top: 25px;
-            padding: 10px;
-        }
-        
-        .table-card-waiter {
-            background: white;
-            border-radius: 20px;
-            padding: 30px 25px;
-            text-align: center;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 3px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .table-card-waiter:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-        
-        .table-card-waiter::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, var(--success), var(--info));
-            transition: all 0.3s;
-        }
-        
-        .table-card-waiter.available::before {
-            background: linear-gradient(90deg, #28a745, #20c997);
-        }
-        
-        .table-card-waiter.occupied::before {
-            background: linear-gradient(90deg, #dc3545, #fd7e14);
-        }
-        
-        .table-card-waiter.reserved::before {
-            background: linear-gradient(90deg, #ffc107, #fd7e14);
-        }
-        
-        .table-card-waiter.maintenance::before {
-            background: linear-gradient(90deg, #6c757d, #495057);
-        }
-        
-        .table-card-waiter.available {
-            background: linear-gradient(135deg, #ffffff 0%, #d4edda 100%);
-            border-color: #c3e6cb;
-        }
-        
-        .table-card-waiter.occupied {
-            background: linear-gradient(135deg, #ffffff 0%, #f8d7da 100%);
-            border-color: #f5c6cb;
-        }
-        
-        .table-card-waiter.reserved {
-            background: linear-gradient(135deg, #ffffff 0%, #fff3cd 100%);
-            border-color: #ffeaa7;
-        }
-        
-        .table-card-waiter.maintenance {
-            background: linear-gradient(135deg, #ffffff 0%, #e2e3e5 100%);
-            border-color: #d6d8db;
-        }
-        
-        .table-icon-waiter {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            color: white;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-        }
-        
-        .table-icon-waiter.available {
-            background: linear-gradient(135deg, #28a745, #20c997);
-        }
-        
-        .table-icon-waiter.occupied {
-            background: linear-gradient(135deg, #dc3545, #fd7e14);
-        }
-        
-        .table-icon-waiter.reserved {
-            background: linear-gradient(135deg, #ffc107, #fd7e14);
-        }
-        
-        .table-icon-waiter.maintenance {
-            background: linear-gradient(135deg, #6c757d, #495057);
-        }
-        
-        .table-orders-count {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--danger);
-            color: white;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
-        }
-        
-        .table-timer {
-            font-size: 12px;
-            background: rgba(0,0,0,0.05);
-            padding: 3px 10px;
-            border-radius: 15px;
-            margin-top: 5px;
-            display: inline-block;
-            color: #6c757d;
-        }
-        
-        /* Waiter Menu Modal */
-        .waiter-menu-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-            backdrop-filter: blur(10px);
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .waiter-menu-modal.active {
-            display: flex;
-        }
-        
-        .waiter-menu-container {
-            width: 90%;
-            max-width: 1400px;
-            height: 90vh;
-            background: white;
-            border-radius: 25px;
-            overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-            animation: slideUp 0.4s ease;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .waiter-menu-header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 25px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .waiter-menu-body {
-            flex: 1;
-            display: flex;
-            overflow: hidden;
-        }
-        
-        .waiter-menu-sidebar {
-            width: 300px;
-            background: #f8f9fa;
-            border-right: 1px solid #e9ecef;
-            padding: 20px;
-            overflow-y: auto;
-        }
-        
-        .waiter-menu-content {
-            flex: 1;
-            padding: 25px;
-            overflow-y: auto;
-            background: white;
-        }
-        
-        .waiter-cart-sidebar {
-            width: 350px;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: white;
-            padding: 25px;
-            overflow-y: auto;
-            border-left: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .category-btn {
-            background: white;
-            border: 2px solid #e9ecef;
-            border-radius: 15px;
-            padding: 15px 20px;
-            margin-bottom: 12px;
-            text-align: left;
-            width: 100%;
-            transition: all 0.3s;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            font-weight: 600;
-            color: #495057;
-        }
-        
-        .category-btn:hover, .category-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-            transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
-        }
-        
-        .category-btn i {
-            margin-right: 12px;
-            font-size: 18px;
-        }
-        
-        .menu-item-waiter {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 2px solid transparent;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .menu-item-waiter:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-            border-color: var(--primary);
-        }
-        
-        .menu-item-waiter::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background: var(--primary);
-            transform: scaleY(0);
-            transition: transform 0.3s;
-        }
-        
-        .menu-item-waiter:hover::before {
-            transform: scaleY(1);
-        }
-        
-        .menu-item-badge {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: var(--danger);
-            color: white;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        
-        .cart-item {
-            background: rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 12px;
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s;
-        }
-        
-        .cart-item:hover {
-            background: rgba(255,255,255,0.15);
-            transform: translateX(5px);
-        }
-        
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        
-        .qty-btn {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            border: none;
-            background: rgba(255,255,255,0.2);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .qty-btn:hover {
-            background: var(--primary);
-            transform: scale(1.1);
-        }
-        
-        .qty-value {
-            min-width: 40px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 18px;
-        }
-        
-        /* ========== KITCHEN DISPLAY SYSTEM ========== */
-        .kitchen-display {
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
-            color: white;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .kds-header {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 25px;
-            border: 1px solid rgba(255,255,255,0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .kds-orders-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 25px;
-        }
-        
-        .kds-order-card {
-            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-            border-radius: 20px;
-            padding: 25px;
-            border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .kds-order-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 8px;
-            height: 100%;
-        }
-        
-        .kds-order-card.pending::before {
-            background: var(--warning);
-        }
-        
-        .kds-order-card.preparing::before {
-            background: var(--info);
-        }
-        
-        .kds-order-card.ready::before {
-            background: var(--success);
-        }
-        
-        .kds-order-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255,255,255,0.3);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-        }
-        
-        .kds-timer {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255,255,255,0.1);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-family: monospace;
-            font-size: 18px;
-            font-weight: bold;
-        }
-        
-        .kds-items-list {
-            margin-top: 15px;
-            max-height: 200px;
-            overflow-y: auto;
-            padding-right: 10px;
-        }
-        
-        .kds-item {
-            background: rgba(255,255,255,0.05);
-            border-radius: 10px;
-            padding: 12px 15px;
-            margin-bottom: 10px;
-            border-left: 4px solid var(--primary);
-        }
-        
-        .kds-modification {
-            font-size: 12px;
-            color: #aaa;
-            margin-top: 5px;
-            padding-left: 10px;
-            border-left: 2px solid var(--warning);
-        }
-        
-        .kds-alert {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(135deg, var(--danger), #ff6b6b);
-            color: white;
-            padding: 40px 60px;
-            border-radius: 20px;
-            font-size: 32px;
-            font-weight: bold;
-            text-align: center;
-            z-index: 3000;
-            animation: pulse 1s infinite, slideDown 0.5s ease;
-            box-shadow: 0 20px 60px rgba(255,0,0,0.4);
-            display: none;
-        }
-        
-        .kds-alert.active {
-            display: block;
-        }
-        
-        /* ========== SALES ANALYTICS ========== */
-        .analytics-dashboard {
-            background: #f8fafc;
-        }
-        
-        .time-filter {
-            background: white;
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        
-        .filter-btn {
-            padding: 10px 25px;
-            border: 2px solid #e9ecef;
-            background: white;
-            border-radius: 10px;
-            margin-right: 10px;
-            transition: all 0.3s;
-            font-weight: 600;
-        }
-        
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-        
-        .sales-metric-card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border-left: 5px solid var(--primary);
-        }
-        
-        .sales-timeline {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 25px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-        }
-        
-        .timeline-item {
-            padding: 20px;
-            border-left: 4px solid var(--primary);
-            margin-bottom: 20px;
-            background: #f8f9fa;
-            border-radius: 0 10px 10px 0;
-            position: relative;
-        }
-        
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -8px;
-            top: 20px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--primary);
-        }
-        
-        /* ========== ANIMATIONS ========== */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes slideUp {
-            from { 
-                opacity: 0;
-                transform: translateY(30px);
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 280px;
             }
-            to { 
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes slideDown {
-            from { 
-                opacity: 0;
-                transform: translate(-50%, -60%);
-            }
-            to { 
-                opacity: 1;
-                transform: translate(-50%, -50%);
-            }
-        }
-        
-        @keyframes pulse {
-            0% { transform: translate(-50%, -50%) scale(1); }
-            50% { transform: translate(-50%, -50%) scale(1.05); }
-            100% { transform: translate(-50%, -50%) scale(1); }
-        }
-        
-        @keyframes ring {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(5deg); }
-            50% { transform: rotate(-5deg); }
-            75% { transform: rotate(5deg); }
-            100% { transform: rotate(0deg); }
-        }
-        
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
+            
+            .sidebar.active {
                 transform: translateX(0);
             }
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        /* Toast Notifications */
-        .toast-container {
-            position: fixed;
-            top: 100px;
-            right: 30px;
-            z-index: 1500;
-        }
-        
-        .custom-toast {
-            background: white;
-            border-radius: 12px;
-            padding: 18px 22px;
-            margin-bottom: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            display: flex;
-            align-items: center;
-            min-width: 320px;
-            max-width: 400px;
-            animation: slideInRight 0.3s ease;
-            border-left: 5px solid var(--primary);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .custom-toast::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--primary);
-        }
-        
-        .toast-icon {
-            font-size: 24px;
-            margin-right: 15px;
-            min-width: 30px;
-        }
-        
-        .toast-success .toast-icon {
-            color: #28a745;
-        }
-        
-        .toast-error .toast-icon {
-            color: #dc3545;
-        }
-        
-        .toast-warning .toast-icon {
-            color: #ffc107;
-        }
-        
-        .toast-info .toast-icon {
-            color: var(--primary);
-        }
-        
-        /* Loading Spinner */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 3000;
-            backdrop-filter: blur(10px);
-        }
-        
-        .spinner {
-            width: 70px;
-            height: 70px;
-            border: 5px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: var(--primary);
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 1400px) {
-            .tables-grid-waiter {
-                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            
+            .main-content {
+                margin-left: 0 !important;
             }
             
-            .waiter-menu-container {
-                width: 95%;
-                height: 95vh;
+            .search-input {
+                width: 200px;
             }
             
-            .kds-orders-grid {
-                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .waiter-menu-body {
-                flex-direction: column;
-            }
-            
-            .waiter-menu-sidebar,
-            .waiter-cart-sidebar {
-                width: 100%;
-                height: auto;
-                max-height: 40vh;
-            }
-            
-            .waiter-menu-content {
-                height: 50vh;
-            }
-            
-            .kds-orders-grid {
+            .stats-grid {
                 grid-template-columns: 1fr;
-            }
-            
-            .stat-card {
-                padding: 15px;
-                margin-bottom: 15px;
-            }
-            
-            .stat-value {
-                font-size: 1.8em;
-            }
-        }
-        
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--secondary);
-        }
-        
-        /* Print Styles */
-        @media print {
-            .sidebar, .header, .btn, .no-print {
-                display: none !important;
-            }
-            
-            .main-content-area {
-                margin: 0 !important;
-                width: 100% !important;
-            }
-            
-            .section-content {
-                display: block !important;
-            }
-            
-            body {
-                background: white !important;
-            }
-        }
-        
-        /* Utility Classes */
-        .blur-bg {
-            backdrop-filter: blur(10px);
-            background: rgba(255,255,255,0.1);
-        }
-        
-        .glass-effect {
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        
-        .shadow-lg {
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
-        }
-        
-        .shadow-xl {
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15) !important;
-        }
-        
-        .hover-lift:hover {
-            transform: translateY(-5px);
-            transition: transform 0.3s ease;
-        }
-        
-        .text-gradient {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .bg-gradient-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary)) !important;
-        }
-        
-        .bg-gradient-success {
-            background: linear-gradient(135deg, #28a745, #20c997) !important;
-        }
-        
-        .bg-gradient-danger {
-            background: linear-gradient(135deg, #dc3545, #fd7e14) !important;
-        }
-        
-        .bg-gradient-warning {
-            background: linear-gradient(135deg, #ffc107, #fd7e14) !important;
-        }
-        
-        .bg-gradient-info {
-            background: linear-gradient(135deg, var(--info), var(--success)) !important;
-        }
-        
-        /* Mobile Menu Button */
-        .mobile-menu-btn {
-            display: none;
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1100;
-            background: var(--primary);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
-            font-size: 20px;
-        }
-        
-        /* Badge Animations */
-        .badge-pulse {
-            animation: pulse 2s infinite;
-        }
-        
-        .badge-bounce {
-            animation: bounce 1s infinite;
-        }
-        
-        /* Order Status Colors */
-        .status-badge {
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .status-pending {
-            background: linear-gradient(135deg, #ffc107, #fd7e14);
-            color: white;
-        }
-        
-        .status-preparing {
-            background: linear-gradient(135deg, var(--info), #17a2b8);
-            color: white;
-        }
-        
-        .status-ready {
-            background: linear-gradient(135deg, #28a745, #20c997);
-            color: white;
-        }
-        
-        .status-served {
-            background: linear-gradient(135deg, #6f42c1, #e83e8c);
-            color: white;
-        }
-        
-        .status-completed {
-            background: linear-gradient(135deg, #28a745, #155724);
-            color: white;
-        }
-        
-        .status-cancelled {
-            background: linear-gradient(135deg, #dc3545, #721c24);
-            color: white;
-        }
-        
-        /* Table Status Indicators */
-        .table-status-indicator {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 8px;
-            animation: pulse 2s infinite;
-        }
-        
-        .status-available .table-status-indicator {
-            background: #28a745;
-            box-shadow: 0 0 10px #28a745;
-        }
-        
-        .status-occupied .table-status-indicator {
-            background: #dc3545;
-            box-shadow: 0 0 10px #dc3545;
-        }
-        
-        .status-reserved .table-status-indicator {
-            background: #ffc107;
-            box-shadow: 0 0 10px #ffc107;
-        }
-        
-        .status-maintenance .table-status-indicator {
-            background: #6c757d;
-            box-shadow: 0 0 10px #6c757d;
-        }
-        
-        /* Floating Action Button */
-        .fab {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            box-shadow: 0 10px 25px rgba(67, 97, 238, 0.4);
-            font-size: 24px;
-            z-index: 100;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .fab:hover {
-            transform: scale(1.1) rotate(90deg);
-            box-shadow: 0 15px 35px rgba(67, 97, 238, 0.5);
-        }
-        
-        /* Custom Tooltip */
-        .custom-tooltip {
-            position: relative;
-            cursor: help;
-        }
-        
-        .custom-tooltip:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1a1a2e;
-            color: white;
-            padding: 8px 15px;
-            border-radius: 8px;
-            font-size: 14px;
-            white-space: nowrap;
-            z-index: 1000;
-            margin-bottom: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-        
-        .custom-tooltip:hover::before {
-            content: '';
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 5px solid transparent;
-            border-top-color: #1a1a2e;
-            margin-bottom: 0;
-        }
-        
-        /* Wave Animation */
-        .wave {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .wave::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 200%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            animation: wave 2s linear infinite;
-        }
-        
-        @keyframes wave {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        
-        /* Confetti */
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            opacity: 0;
-            z-index: 3000;
-            animation: confetti-fall 5s linear forwards;
-        }
-        
-        @keyframes confetti-fall {
-            0% {
-                transform: translateY(-100px) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(720deg);
-                opacity: 0;
-            }
-        }
-        
-        /* Notification Bell */
-        .notification-bell {
-            position: relative;
-            cursor: pointer;
-            animation: ring 2s ease infinite;
-        }
-        
-        .notification-bell.active {
-            animation: ring 0.5s ease 3;
-        }
-        
-        .notification-count {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--danger);
-            color: white;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            animation: pulse 1s infinite;
-        }
-        
-        /* Progress Bar */
-        .custom-progress {
-            height: 10px;
-            border-radius: 5px;
-            background: #e9ecef;
-            overflow: hidden;
-        }
-        
-        .custom-progress-bar {
-            height: 100%;
-            border-radius: 5px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transition: width 0.6s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .custom-progress-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s infinite;
-        }
-        
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-        
-        /* Toggle Switch */
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 30px;
-        }
-        
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        
-        .toggle-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 34px;
-        }
-        
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 22px;
-            width: 22px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-        
-        input:checked + .toggle-slider {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-        }
-        
-        input:checked + .toggle-slider:before {
-            transform: translateX(30px);
-        }
-        
-        /* Card Hover Effects */
-        .card-hover {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .card-hover:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.15) !important;
-        }
-        
-        /* Gradient Text */
-        .gradient-text {
-            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--success));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            background-size: 300% 300%;
-            animation: gradient 3s ease infinite;
-        }
-        
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        /* Ripple Effect */
-        .ripple {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .ripple:after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 5px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.5);
-            opacity: 0;
-            border-radius: 100%;
-            transform: scale(1, 1) translate(-50%);
-            transform-origin: 50% 50%;
-        }
-        
-        .ripple:focus:after {
-            animation: ripple 1s ease-out;
-        }
-        
-        @keyframes ripple {
-            0% {
-                transform: scale(0, 0);
-                opacity: 0.5;
-            }
-            100% {
-                transform: scale(100, 100);
-                opacity: 0;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="spinner"></div>
-    </div>
-    
-    <!-- Mobile Menu Button -->
-    <button class="mobile-menu-btn" id="mobileMenuBtn">
-        <i class="fas fa-bars"></i>
-    </button>
-    
-    <!-- Kitchen Alert -->
-    <div class="kds-alert" id="kitchenAlert">
-        <i class="fas fa-bell fa-shake fa-3x mb-3"></i>
-        <div>NEW ORDER!</div>
-        <small>Check Kitchen Display</small>
-    </div>
-    
-    <!-- Confetti Container -->
-    <div id="confettiContainer"></div>
-    
-    <div class="container-fluid p-0">
-        <div class="row g-0">
-            <!-- Sidebar -->
-            <div class="sidebar" id="sidebar">
-                <div class="p-4">
-                    <div class="d-flex align-items-center mb-5">
-                        <div class="user-profile me-3">
-                            <i class="fas fa-utensils"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-white mb-1 restaurant-name">RestaurantOS Pro</h4>
-                            <small class="text-muted">Premium Restaurant Management</small>
-                        </div>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-utensils"></i>
                     </div>
-                    
-                    <!-- Mode Toggle -->
-                    <div class="mb-4 p-3 glass-effect rounded">
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="modeToggle">
-                            <label class="form-check-label text-white" for="modeToggle">
-                                <i class="fas fa-moon me-2"></i> Dark Mode
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <!-- Main Navigation -->
-                    <div class="nav flex-column mb-4">
-                        <a class="nav-link active" data-section="dashboard">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <span>Dashboard</span>
-                            <span class="nav-badge" id="dashboardBadge">3</span>
-                        </a>
-                        <a class="nav-link" data-section="waiter">
-                            <i class="fas fa-user-tie"></i>
-                            <span>Waiter Mode</span>
-                            <span class="nav-badge bg-warning" id="waiterBadge">!</span>
-                        </a>
-                        <a class="nav-link" data-section="kitchen">
-                            <i class="fas fa-fire"></i>
-                            <span>Kitchen Display</span>
-                            <span class="nav-badge bg-danger" id="kitchenBadge">5</span>
-                        </a>
-                        <a class="nav-link" data-section="pos">
-                            <i class="fas fa-cash-register"></i>
-                            <span>POS System</span>
-                        </a>
-                        <a class="nav-link" data-section="tables">
-                            <i class="fas fa-chair"></i>
-                            <span>Table Management</span>
-                        </a>
-                        <a class="nav-link" data-section="orders">
-                            <i class="fas fa-clipboard-list"></i>
-                            <span>Order Management</span>
-                            <span class="nav-badge" id="ordersBadge">12</span>
-                        </a>
-                    </div>
-                    
-                    <!-- Analytics Navigation -->
-                    <div class="mb-4">
-                        <small class="text-uppercase text-muted d-block mb-3">Analytics</small>
-                        <div class="nav flex-column">
-                            <a class="nav-link" data-section="sales">
-                                <i class="fas fa-chart-line"></i>
-                                <span>Sales Analytics</span>
-                            </a>
-                            <a class="nav-link" data-section="reports">
-                                <i class="fas fa-file-alt"></i>
-                                <span>Reports</span>
-                            </a>
-                            <a class="nav-link" data-section="customers">
-                                <i class="fas fa-users"></i>
-                                <span>Customers</span>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <!-- Management Navigation -->
-                    <div class="mb-4">
-                        <small class="text-uppercase text-muted d-block mb-3">Management</small>
-                        <div class="nav flex-column">
-                            <a class="nav-link" data-section="menu">
-                                <i class="fas fa-book"></i>
-                                <span>Menu Management</span>
-                            </a>
-                            <a class="nav-link" data-section="inventory">
-                                <i class="fas fa-boxes"></i>
-                                <span>Inventory</span>
-                                <span class="nav-badge bg-warning" id="inventoryBadge">3</span>
-                            </a>
-                            <a class="nav-link" data-section="staff">
-                                <i class="fas fa-user-friends"></i>
-                                <span>Staff</span>
-                            </a>
-                        </div>
-                    </div>
-                    
-                    <!-- Quick Actions -->
-                    <div class="mt-5 pt-4 border-top border-secondary">
-                        <small class="text-muted d-block mb-3">QUICK ACTIONS</small>
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-success btn-sm" onclick="quickAction('newOrder')">
-                                <i class="fas fa-plus me-2"></i>New Order
-                            </button>
-                            <button class="btn btn-warning btn-sm" onclick="quickAction('quickPayment')">
-                                <i class="fas fa-credit-card me-2"></i>Quick Payment
-                            </button>
-                            <button class="btn btn-info btn-sm" onclick="quickAction('printReport')">
-                                <i class="fas fa-print me-2"></i>Print Report
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- System Status -->
-                    <div class="mt-4 pt-4 border-top border-secondary">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <small class="text-muted d-block" id="systemTime">00:00:00</small>
-                                <small class="text-muted" id="currentDate">Loading...</small>
-                            </div>
-                            <div class="notification-bell" id="notificationBell">
-                                <i class="fas fa-bell text-warning"></i>
-                                <span class="notification-count" id="notificationCount">3</span>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="logo-text">RestaurantOS</div>
                 </div>
-            </div>
-            
-            <!-- Main Content Area -->
-            <div class="main-content-area" id="mainContentArea">
-                <!-- Header -->
-                <div class="header">
-                    <div class="container-fluid">
-                        <div class="row align-items-center">
-                            <div class="col-md-6">
-                                <h3 class="mb-1" id="sectionTitle">
-                                    <span class="text-gradient">Dashboard</span>
-                                </h3>
-                                <small class="text-muted" id="breadcrumb">Overview / Statistics</small>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="row text-center">
-                                    <div class="col-3">
-                                        <div class="stat-card">
-                                            <div class="text-muted mb-2">
-                                                <i class="fas fa-dollar-sign"></i> Today's Revenue
-                                            </div>
-                                            <div class="stat-value" id="todayRevenue">$0</div>
-                                            <div class="stat-change positive" id="revenueChange">+0%</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="stat-card">
-                                            <div class="text-muted mb-2">
-                                                <i class="fas fa-shopping-cart"></i> Today's Orders
-                                            </div>
-                                            <div class="stat-value" id="todayOrders">0</div>
-                                            <div class="stat-change positive" id="ordersChange">+0%</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="stat-card">
-                                            <div class="text-muted mb-2">
-                                                <i class="fas fa-chair"></i> Active Tables
-                                            </div>
-                                            <div class="stat-value" id="activeTables">0/20</div>
-                                            <div class="stat-change negative" id="tablesChange">-0%</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div class="stat-card">
-                                            <div class="text-muted mb-2">
-                                                <i class="fas fa-user-clock"></i> Avg. Wait Time
-                                            </div>
-                                            <div class="stat-value" id="avgWaitTime">0m</div>
-                                            <div class="stat-change positive" id="waitTimeChange">-0%</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Toast Container -->
-                <div class="toast-container" id="toastContainer"></div>
-                
-                <!-- Main Content -->
-                <div class="main-content" id="mainContent">
-                    <!-- Dashboard Section -->
-                    <div id="dashboardSection" class="section-content active">
-                        <!-- Dashboard content remains the same -->
-                    </div>
-                    
-                    <!-- ========== WAITER MODE SECTION ========== -->
-                    <div id="waiterSection" class="section-content waiter-mode">
-                        <div class="row mb-4">
-                            <div class="col-md-8">
-                                <h2 class="mb-0 text-gradient">
-                                    <i class="fas fa-user-tie me-2"></i>Waiter Mode
-                                </h2>
-                                <p class="text-muted">Click on tables to take orders. Manage items in cart with +/- buttons.</p>
-                            </div>
-                            <div class="col-md-4 text-end">
-                                <div class="btn-group">
-                                    <button class="btn btn-outline-primary" onclick="refreshTables()">
-                                        <i class="fas fa-sync-alt"></i> Refresh
-                                    </button>
-                                    <button class="btn btn-primary" onclick="toggleWaiterView()">
-                                        <i class="fas fa-expand"></i> Full View
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Table Status Legend -->
-                        <div class="row mb-4">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="row text-center">
-                                            <div class="col-3">
-                                                <span class="status-available">
-                                                    <span class="table-status-indicator"></span>
-                                                    Available
-                                                </span>
-                                            </div>
-                                            <div class="col-3">
-                                                <span class="status-occupied">
-                                                    <span class="table-status-indicator"></span>
-                                                    Occupied
-                                                </span>
-                                            </div>
-                                            <div class="col-3">
-                                                <span class="status-reserved">
-                                                    <span class="table-status-indicator"></span>
-                                                    Reserved
-                                                </span>
-                                            </div>
-                                            <div class="col-3">
-                                                <span class="status-maintenance">
-                                                    <span class="table-status-indicator"></span>
-                                                    Maintenance
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Tables Grid -->
-                        <div class="tables-grid-waiter" id="tablesGridWaiter">
-                            <!-- Tables will be loaded here -->
-                        </div>
-                        
-                        <!-- Active Orders -->
-                        <div class="row mt-5">
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-header bg-primary text-white">
-                                        <h5 class="mb-0">
-                                            <i class="fas fa-clock me-2"></i>Active Orders
-                                        </h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-hover" id="activeOrdersTable">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Table</th>
-                                                        <th>Order #</th>
-                                                        <th>Items</th>
-                                                        <th>Time</th>
-                                                        <th>Status</th>
-                                                        <th>Waiter</th>
-                                                        <th>Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="activeOrdersBody">
-                                                    <!-- Active orders will be loaded here -->
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- ========== KITCHEN DISPLAY SECTION ========== -->
-                    <div id="kitchenSection" class="section-content kitchen-display">
-                        <div class="kds-header">
-                            <div>
-                                <h2 class="mb-0">
-                                    <i class="fas fa-fire me-2 text-danger"></i>Kitchen Display System
-                                </h2>
-                                <p class="text-muted mb-0">Real-time order tracking. New orders appear with alarm.</p>
-                            </div>
-                            <div class="d-flex align-items-center gap-3">
-                                <div class="text-center">
-                                    <div class="h3 mb-0" id="kitchenPending">0</div>
-                                    <small>Pending</small>
-                                </div>
-                                <div class="text-center">
-                                    <div class="h3 mb-0" id="kitchenPreparing">0</div>
-                                    <small>Preparing</small>
-                                </div>
-                                <div class="text-center">
-                                    <div class="h3 mb-0" id="kitchenReady">0</div>
-                                    <small>Ready</small>
-                                </div>
-                                <button class="btn btn-danger" onclick="clearKitchenAlerts()">
-                                    <i class="fas fa-bell-slash"></i> Silence
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="kds-orders-grid" id="kitchenOrdersGrid">
-                            <!-- Kitchen orders will be loaded here -->
-                        </div>
-                        
-                        <!-- Kitchen Statistics -->
-                        <div class="row mt-5">
-                            <div class="col-md-6">
-                                <div class="card bg-dark text-white">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Today's Performance</h5>
-                                        <div class="mt-3">
-                                            <canvas id="kitchenPerformanceChart" height="150"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card bg-dark text-white">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Preparation Times</h5>
-                                        <div class="mt-3">
-                                            <div class="mb-3">
-                                                <div class="d-flex justify-content-between mb-1">
-                                                    <span>Fast Food</span>
-                                                    <span>8 mins</span>
-                                                </div>
-                                                <div class="custom-progress">
-                                                    <div class="custom-progress-bar" style="width: 85%"></div>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <div class="d-flex justify-content-between mb-1">
-                                                    <span>Main Course</span>
-                                                    <span>15 mins</span>
-                                                </div>
-                                                <div class="custom-progress">
-                                                    <div class="custom-progress-bar" style="width: 60%"></div>
-                                                </div>
-                                            </div>
-                                            <div class="mb-3">
-                                                <div class="d-flex justify-content-between mb-1">
-                                                    <span>Special Orders</span>
-                                                    <span>25 mins</span>
-                                                </div>
-                                                <div class="custom-progress">
-                                                    <div class="custom-progress-bar" style="width: 40%"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- ========== SALES ANALYTICS SECTION ========== -->
-                    <div id="salesSection" class="section-content analytics-dashboard">
-                        <div class="row mb-4">
-                            <div class="col-md-8">
-                                <h2 class="mb-0 text-gradient">
-                                    <i class="fas fa-chart-line me-2"></i>Sales Analytics
-                                </h2>
-                                <p class="text-muted">Track annual sales, settlement history, and business performance</p>
-                            </div>
-                            <div class="col-md-4 text-end">
-                                <div class="time-filter">
-                                    <button class="filter-btn active" onclick="setTimeFilter('today')">Today</button>
-                                    <button class="filter-btn" onclick="setTimeFilter('week')">This Week</button>
-                                    <button class="filter-btn" onclick="setTimeFilter('month')">This Month</button>
-                                    <button class="filter-btn" onclick="setTimeFilter('year')">This Year</button>
-                                    <button class="filter-btn" onclick="setTimeFilter('all')">All Time</button>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Sales Metrics -->
-                        <div class="row mb-4">
-                            <div class="col-md-3">
-                                <div class="sales-metric-card">
-                                    <div class="text-muted mb-2">Total Revenue</div>
-                                    <div class="h2 text-gradient mb-2" id="totalRevenue">$0</div>
-                                    <div class="d-flex justify-content-between">
-                                        <small class="text-success">
-                                            <i class="fas fa-arrow-up"></i> 12% growth
-                                        </small>
-                                        <small>Annual</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="sales-metric-card">
-                                    <div class="text-muted mb-2">Total Orders</div>
-                                    <div class="h2 text-gradient mb-2" id="totalOrders">0</div>
-                                    <div class="d-flex justify-content-between">
-                                        <small class="text-success">
-                                            <i class="fas fa-arrow-up"></i> 8% growth
-                                        </small>
-                                        <small>Annual</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="sales-metric-card">
-                                    <div class="text-muted mb-2">Avg. Order Value</div>
-                                    <div class="h2 text-gradient mb-2" id="avgOrderValue">$0</div>
-                                    <div class="d-flex justify-content-between">
-                                        <small class="text-success">
-                                            <i class="fas fa-arrow-up"></i> 5% growth
-                                        </small>
-                                        <small>Annual</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="sales-metric-card">
-                                    <div class="text-muted mb-2">Settlements</div>
-                                    <div class="h2 text-gradient mb-2" id="totalSettlements">0</div>
-                                    <div class="d-flex justify-content-between">
-                                        <small class="text-success">
-                                            <i class="fas fa-check-circle"></i> 100% paid
-                                        </small>
-                                        <small>Today</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Charts -->
-                        <div class="row mb-4">
-                            <div class="col-md-8">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Annual Sales Trend</h5>
-                                        <div class="mt-3">
-                                            <canvas id="annualSalesChart" height="250"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Revenue Breakdown</h5>
-                                        <div class="mt-3">
-                                            <canvas id="revenueBreakdownChart" height="250"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Settlement History -->
-                        <div class="sales-timeline">
-                            <h5 class="mb-4">Recent Settlements</h5>
-                            <div id="settlementTimeline">
-                                <!-- Settlement history will be loaded here -->
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Other sections remain... -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Waiter Menu Modal -->
-    <div class="waiter-menu-modal" id="waiterMenuModal">
-        <div class="waiter-menu-container">
-            <div class="waiter-menu-header">
-                <div>
-                    <h3 class="mb-1" id="modalTableTitle">Table 1 - Order</h3>
-                    <small>Click menu items to add to order</small>
-                </div>
-                <div>
-                    <button class="btn btn-light me-2" onclick="addModification()">
-                        <i class="fas fa-edit"></i> Add Note
-                    </button>
-                    <button class="btn btn-danger" onclick="closeWaiterMenu()">
-                        <i class="fas fa-times"></i> Close
-                    </button>
-                </div>
-            </div>
-            
-            <div class="waiter-menu-body">
-                <!-- Menu Categories Sidebar -->
-                <div class="waiter-menu-sidebar">
-                    <h5 class="mb-4">Categories</h5>
-                    <div id="waiterCategories">
-                        <!-- Categories will be loaded here -->
-                    </div>
-                    
-                    <div class="mt-5">
-                        <h5 class="mb-3">Special Instructions</h5>
-                        <textarea class="form-control" id="orderNotes" rows="4" 
-                                  placeholder="Add special instructions for kitchen..."></textarea>
-                    </div>
-                </div>
-                
-                <!-- Menu Items -->
-                <div class="waiter-menu-content">
-                    <div class="row" id="waiterMenuItems">
-                        <!-- Menu items will be loaded here -->
-                    </div>
-                </div>
-                
-                <!-- Cart Sidebar -->
-                <div class="waiter-cart-sidebar">
-                    <h4 class="mb-4">
-                        <i class="fas fa-shopping-cart me-2"></i>Order Cart
-                    </h4>
-                    
-                    <div id="waiterCartItems">
-                        <!-- Cart items will be loaded here -->
-                    </div>
-                    
-                    <div class="mt-4 pt-3 border-top border-secondary">
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>Subtotal:</span>
-                            <span id="cartSubtotal">$0.00</span>
-                        </div>
-                        <div class="d-flex justify-content-between mb-3">
-                            <span>Tax (10%):</span>
-                            <span id="cartTax">$0.00</span>
-                        </div>
-                        <div class="d-flex justify-content-between fw-bold fs-5 mb-4">
-                            <span>Total:</span>
-                            <span id="cartTotal">$0.00</span>
-                        </div>
-                        
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-success btn-lg" onclick="sendToKitchen()">
-                                <i class="fas fa-paper-plane me-2"></i> Send to Kitchen
-                            </button>
-                            <button class="btn btn-warning" onclick="clearCart()">
-                                <i class="fas fa-trash me-2"></i> Clear Cart
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modification Modal -->
-    <div class="modal-overlay" id="modificationModal">
-        <div class="modal-content" style="max-width: 500px;">
-            <div class="modal-header bg-warning text-white">
-                <h5 class="modal-title">Add Special Instructions</h5>
-                <button type="button" class="btn-close btn-close-white" onclick="closeModificationModal()"></button>
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label class="form-label">For Item:</label>
-                    <select class="form-select" id="modificationItem">
-                        <!-- Items will be populated here -->
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label">Instructions:</label>
-                    <textarea class="form-control" id="modificationText" rows="4" 
-                              placeholder="E.g., No onion, extra cheese, well-done..."></textarea>
-                </div>
-                <button class="btn btn-warning w-100" onclick="saveModification()">
-                    <i class="fas fa-save me-2"></i> Save Instructions
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-chevron-left"></i>
                 </button>
             </div>
+            
+            <div class="sidebar-menu">
+                <!-- Main Menu -->
+                <div class="menu-group">
+                    <div class="menu-group-title">MAIN</div>
+                    <div class="nav-item">
+                        <a href="#dashboard" class="nav-link active" data-page="dashboard">
+                            <div class="nav-icon"><i class="fas fa-home"></i></div>
+                            <div class="nav-text">Dashboard</div>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#orders" class="nav-link" data-page="orders">
+                            <div class="nav-icon"><i class="fas fa-shopping-cart"></i></div>
+                            <div class="nav-text">Orders</div>
+                            <div class="nav-badge">3</div>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#tables" class="nav-link" data-page="tables">
+                            <div class="nav-icon"><i class="fas fa-chair"></i></div>
+                            <div class="nav-text">Table Management</div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Restaurant Menu -->
+                <div class="menu-group">
+                    <div class="menu-group-title">RESTAURANT</div>
+                    <div class="nav-item">
+                        <a href="#menu" class="nav-link" data-page="menu">
+                            <div class="nav-icon"><i class="fas fa-book"></i></div>
+                            <div class="nav-text">Menu Management</div>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#kitchen" class="nav-link" data-page="kitchen">
+                            <div class="nav-icon"><i class="fas fa-utensils"></i></div>
+                            <div class="nav-text">Kitchen Display</div>
+                            <div class="nav-badge">5</div>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#reservations" class="nav-link" data-page="reservations">
+                            <div class="nav-icon"><i class="fas fa-calendar-alt"></i></div>
+                            <div class="nav-text">Reservations</div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Management Menu -->
+                <div class="menu-group">
+                    <div class="menu-group-title">MANAGEMENT</div>
+                    <div class="nav-item">
+                        <a href="#inventory" class="nav-link" data-page="inventory">
+                            <div class="nav-icon"><i class="fas fa-boxes"></i></div>
+                            <div class="nav-text">Inventory</div>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#staff" class="nav-link" data-page="staff">
+                            <div class="nav-icon"><i class="fas fa-users"></i></div>
+                            <div class="nav-text">Staff Management</div>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#customers" class="nav-link" data-page="customers">
+                            <div class="nav-icon"><i class="fas fa-user-friends"></i></div>
+                            <div class="nav-text">Customers</div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Analytics Menu -->
+                <div class="menu-group">
+                    <div class="menu-group-title">ANALYTICS</div>
+                    <div class="nav-item">
+                        <a href="#reports" class="nav-link" data-page="reports">
+                            <div class="nav-icon"><i class="fas fa-chart-bar"></i></div>
+                            <div class="nav-text">Reports</div>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#analytics" class="nav-link" data-page="analytics">
+                            <div class="nav-icon"><i class="fas fa-chart-line"></i></div>
+                            <div class="nav-text">Analytics</div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Settings Menu -->
+                <div class="menu-group">
+                    <div class="menu-group-title">SETTINGS</div>
+                    <div class="nav-item">
+                        <a href="#settings" class="nav-link" data-page="settings">
+                            <div class="nav-icon"><i class="fas fa-cog"></i></div>
+                            <div class="nav-text">System Settings</div>
+                        </a>
+                    </div>
+                    <div class="nav-item">
+                        <a href="#help" class="nav-link" data-page="help">
+                            <div class="nav-icon"><i class="fas fa-question-circle"></i></div>
+                            <div class="nav-text">Help & Support</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-footer">
+                <div class="user-avatar">JD</div>
+                <div class="user-info">
+                    <div class="user-name">John Doe</div>
+                    <div class="user-role">Restaurant Manager</div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <h1 class="page-title">Dashboard</h1>
+                <div class="top-bar-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" class="search-input" placeholder="Search...">
+                    </div>
+                    <button class="action-btn" id="notificationBtn">
+                        <i class="fas fa-bell"></i>
+                        <div class="notification-badge">5</div>
+                    </button>
+                    <button class="action-btn" id="fullscreenBtn">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <div class="theme-toggle">
+                        <input type="checkbox" id="themeToggle">
+                        <label for="themeToggle">
+                            <i class="fas fa-moon"></i>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Content Area -->
+            <div class="content-area" id="contentArea">
+                <!-- Dashboard Page -->
+                <div class="page-content active" id="dashboard">
+                    <!-- Stats Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon primary">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="stat-value">$12,548</div>
+                            <div class="stat-label">Today's Revenue</div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                12.5%
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon success">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="stat-value">187</div>
+                            <div class="stat-label">Today's Orders</div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                8.2%
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon warning">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-value">342</div>
+                            <div class="stat-label">Active Customers</div>
+                            <div class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i>
+                                5.7%
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon danger">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <div class="stat-value">23</div>
+                            <div class="stat-label">Active Tables</div>
+                            <div class="stat-change negative">
+                                <i class="fas fa-arrow-down"></i>
+                                2.1%
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Charts and Tables -->
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="content-card">
+                                <div class="card-header">
+                                    <div>
+                                        <h3 class="card-title">Revenue Overview</h3>
+                                        <div class="card-subtitle">Last 7 days performance</div>
+                                    </div>
+                                    <div class="chart-controls">
+                                        <button class="chart-control active">7D</button>
+                                        <button class="chart-control">1M</button>
+                                        <button class="chart-control">3M</button>
+                                        <button class="chart-control">1Y</button>
+                                    </div>
+                                </div>
+                                <canvas id="revenueChart" height="250"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="content-card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Top Selling Items</h3>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Item</th>
+                                                <th>Sold</th>
+                                                <th>Revenue</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Grilled Salmon</td>
+                                                <td>42</td>
+                                                <td>$1,260</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Beef Steak</td>
+                                                <td>38</td>
+                                                <td>$1,140</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Caesar Salad</td>
+                                                <td>35</td>
+                                                <td>$525</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Pasta Carbonara</td>
+                                                <td>31</td>
+                                                <td>$465</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Chocolate Cake</td>
+                                                <td>28</td>
+                                                <td>$420</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Orders -->
+                    <div class="content-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Recent Orders</h3>
+                            <button class="btn btn-primary">View All Orders</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Order ID</th>
+                                        <th>Customer</th>
+                                        <th>Table</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Time</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>#ORD-001</td>
+                                        <td>John Smith</td>
+                                        <td>T-05</td>
+                                        <td>$124.50</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                        <td>2:30 PM</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#ORD-002</td>
+                                        <td>Emma Johnson</td>
+                                        <td>T-12</td>
+                                        <td>$89.75</td>
+                                        <td><span class="badge badge-warning">Preparing</span></td>
+                                        <td>2:15 PM</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline">View</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#ORD-003</td>
+                                        <td>Michael Brown</td>
+                                        <td>T-08</td>
+                                        <td>$156.20</td>
+                                        <td><span class="badge badge-primary">Served</span></td>
+                                        <td>1:45 PM</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline">View</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Orders Page -->
+                <div class="page-content" id="orders">
+                    <div class="content-card">
+                        <h3 class="card-title mb-3">Order Management</h3>
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <select class="form-select">
+                                    <option>All Status</option>
+                                    <option>Pending</option>
+                                    <option>Preparing</option>
+                                    <option>Served</option>
+                                    <option>Completed</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="date" class="form-control" value="2024-01-15">
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <button class="btn btn-primary"><i class="fas fa-plus"></i> New Order</button>
+                            </div>
+                        </div>
+                        
+                        <div class="row" id="ordersGrid">
+                            <!-- Orders will be loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tables Page -->
+                <div class="page-content" id="tables">
+                    <div class="content-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Table Management</h3>
+                            <div>
+                                <button class="btn btn-secondary me-2"><i class="fas fa-sync-alt"></i> Refresh</button>
+                                <button class="btn btn-primary"><i class="fas fa-plus"></i> Add Table</button>
+                            </div>
+                        </div>
+                        
+                        <div class="tables-grid" id="tablesGrid">
+                            <!-- Tables will be loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Add more page content divs for other pages -->
+                
+            </div>
         </div>
     </div>
 
-    <!-- Audio for Kitchen Alarm -->
-    <audio id="kitchenAlarm" preload="auto">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3" type="audio/mpeg">
-    </audio>
+    <!-- Modal for Table Details -->
+    <div class="modal-overlay" id="tableModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 class="modal-title">Table Details</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Modal content will be loaded dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelModal">Cancel</button>
+                <button class="btn btn-primary" id="saveTable">Save Changes</button>
+            </div>
+        </div>
+    </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-    <!-- DataTables -->
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-    <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
     <script>
-        // ========== RESTAURANT DATA STRUCTURE ==========
-        const restaurantOS = {
-            // System Data
-            version: "2.0.0",
-            restaurantName: "RestaurantOS Pro",
-            currency: "$",
-            
-            // Core Data
-            tables: [],
-            menu: [],
-            orders: [],
-            kitchenOrders: [],
-            sales: [],
-            settlements: [],
-            staff: [],
-            customers: [],
-            inventory: [],
-            
-            // Current State
-            currentOrder: {
-                tableId: null,
-                items: [],
-                notes: "",
-                modifications: {},
-                waiterId: 1,
-                status: "pending",
-                createdAt: null
-            },
-            
-            // Settings
-            settings: {
-                taxRate: 0.10,
-                serviceCharge: 0.05,
-                autoKitchenAlarm: true,
-                autoPrint: true,
-                darkMode: false,
-                notifications: true
-            },
-            
-            // Statistics
-            stats: {
-                todayRevenue: 0,
-                todayOrders: 0,
-                totalRevenue: 0,
-                totalOrders: 0,
-                avgOrderValue: 0,
-                avgPreparationTime: 15,
-                occupancyRate: 0
-            },
-            
-            // Kitchen State
-            kitchen: {
-                pendingOrders: 0,
-                preparingOrders: 0,
-                readyOrders: 0,
-                lastAlert: null
-            }
-        };
-
-        // ========== INITIALIZATION ==========
+        // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
-            initializeSystem();
-            setupEventListeners();
-            loadDemoData();
-            updateAllDisplays();
-            showToast('System initialized successfully!', 'success');
+            // DOM Elements
+            const sidebar = document.querySelector('.sidebar');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const themeToggle = document.getElementById('themeToggle');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pageContents = document.querySelectorAll('.page-content');
+            const contentArea = document.getElementById('contentArea');
+            const tableModal = document.getElementById('tableModal');
+            const closeModal = document.getElementById('closeModal');
+            const cancelModal = document.getElementById('cancelModal');
+            const searchInput = document.querySelector('.search-input');
+            const notificationBtn = document.getElementById('notificationBtn');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
             
-            // Hide loading overlay
-            setTimeout(() => {
-                document.getElementById('loadingOverlay').style.display = 'none';
-            }, 1000);
-        });
-
-        function initializeSystem() {
-            // Load saved data
-            const savedData = localStorage.getItem('restaurantOSData');
-            if (savedData) {
-                const data = JSON.parse(savedData);
-                Object.assign(restaurantOS, data);
-                showToast('Data loaded from storage', 'info');
-            }
+            // Initialize Charts
+            let revenueChart = null;
             
-            // Initialize clock
-            updateSystemClock();
-            setInterval(updateSystemClock, 1000);
-            
-            // Auto-save every 2 minutes
-            setInterval(saveToStorage, 120000);
-            
-            // Check for new orders every 10 seconds
-            setInterval(checkNewOrders, 10000);
-        }
-
-        function loadDemoData() {
-            // Create tables
-            for (let i = 1; i <= 20; i++) {
-                restaurantOS.tables.push({
-                    id: i,
-                    number: i,
-                    capacity: i <= 5 ? 2 : i <= 10 ? 4 : i <= 15 ? 6 : 8,
-                    status: i <= 5 ? 'occupied' : 'available',
-                    location: i <= 10 ? 'Indoor' : 'Outdoor',
-                    currentOrder: null,
-                    lastUsed: i <= 5 ? new Date().toISOString() : null,
-                    waiterId: null
-                });
-            }
-            
-            // Create menu items
-            const categories = [
-                'Appetizers', 'Main Course', 'Pizza', 'Burgers', 
-                'Salads', 'Desserts', 'Drinks', 'Specials'
-            ];
-            
-            const menuItems = [
-                // Appetizers
-                { id: 1, name: 'Garlic Bread', category: 'Appetizers', price: 5.99, prepTime: 5, available: true },
-                { id: 2, name: 'Mozzarella Sticks', category: 'Appetizers', price: 7.99, prepTime: 8, available: true },
-                { id: 3, name: 'Bruschetta', category: 'Appetizers', price: 6.99, prepTime: 7, available: true },
-                
-                // Main Course
-                { id: 4, name: 'Grilled Salmon', category: 'Main Course', price: 22.99, prepTime: 20, available: true },
-                { id: 5, name: 'Beef Steak', category: 'Main Course', price: 24.99, prepTime: 18, available: true },
-                { id: 6, name: 'Chicken Alfredo', category: 'Main Course', price: 16.99, prepTime: 15, available: true },
-                
-                // Pizza
-                { id: 7, name: 'Margherita Pizza', category: 'Pizza', price: 12.99, prepTime: 12, available: true },
-                { id: 8, name: 'Pepperoni Pizza', category: 'Pizza', price: 14.99, prepTime: 12, available: true },
-                { id: 9, name: 'Vegetarian Pizza', category: 'Pizza', price: 13.99, prepTime: 12, available: true },
-                
-                // Burgers
-                { id: 10, name: 'Classic Burger', category: 'Burgers', price: 10.99, prepTime: 10, available: true },
-                { id: 11, name: 'Cheese Burger', category: 'Burgers', price: 11.99, prepTime: 10, available: true },
-                { id: 12, name: 'Chicken Burger', category: 'Burgers', price: 11.99, prepTime: 10, available: true },
-                
-                // Salads
-                { id: 13, name: 'Caesar Salad', category: 'Salads', price: 8.99, prepTime: 7, available: true },
-                { id: 14, name: 'Greek Salad', category: 'Salads', price: 9.99, prepTime: 7, available: true },
-                
-                // Desserts
-                { id: 15, name: 'Chocolate Cake', category: 'Desserts', price: 6.99, prepTime: 5, available: true },
-                { id: 16, name: 'Cheesecake', category: 'Desserts', price: 7.99, prepTime: 5, available: true },
-                
-                // Drinks
-                { id: 17, name: 'Coca Cola', category: 'Drinks', price: 2.99, prepTime: 2, available: true },
-                { id: 18, name: 'Orange Juice', category: 'Drinks', price: 3.99, prepTime: 2, available: true },
-                { id: 19, name: 'Coffee', category: 'Drinks', price: 3.49, prepTime: 3, available: true },
-                
-                // Specials
-                { id: 20, name: "Chef's Special", category: 'Specials', price: 18.99, prepTime: 15, available: true }
-            ];
-            
-            restaurantOS.menu = menuItems;
-            
-            // Create some demo orders
-            const now = new Date();
-            const oneHourAgo = new Date(now.getTime() - 60 * 60 * 1000);
-            const thirtyMinutesAgo = new Date(now.getTime() - 30 * 60 * 1000);
-            
-            restaurantOS.orders = [
-                {
-                    id: 1,
-                    orderNumber: 'ORD-1001',
-                    tableId: 1,
-                    items: [
-                        { id: 4, name: 'Grilled Salmon', price: 22.99, quantity: 1 },
-                        { id: 13, name: 'Caesar Salad', price: 8.99, quantity: 1 },
-                        { id: 17, name: 'Coca Cola', price: 2.99, quantity: 2 }
-                    ],
-                    subtotal: 37.96,
-                    tax: 3.80,
-                    total: 41.76,
-                    status: 'preparing',
-                    waiterId: 1,
-                    createdAt: oneHourAgo.toISOString(),
-                    kitchenReceived: oneHourAgo.toISOString(),
-                    modifications: {
-                        'Grilled Salmon': 'No butter, extra lemon'
-                    }
-                },
-                {
-                    id: 2,
-                    orderNumber: 'ORD-1002',
-                    tableId: 2,
-                    items: [
-                        { id: 7, name: 'Margherita Pizza', price: 12.99, quantity: 1 },
-                        { id: 10, name: 'Classic Burger', price: 10.99, quantity: 2 }
-                    ],
-                    subtotal: 34.97,
-                    tax: 3.50,
-                    total: 38.47,
-                    status: 'pending',
-                    waiterId: 1,
-                    createdAt: thirtyMinutesAgo.toISOString(),
-                    kitchenReceived: thirtyMinutesAgo.toISOString()
-                }
-            ];
-            
-            // Update kitchen orders
-            restaurantOS.kitchenOrders = restaurantOS.orders.filter(order => 
-                ['pending', 'preparing'].includes(order.status)
-            );
-            
-            // Update statistics
-            updateStatistics();
-        }
-
-        // ========== WAITER MODE FUNCTIONS ==========
-        function showWaiterMode() {
-            showSection('waiter');
-            loadWaiterTables();
-            loadActiveOrders();
-        }
-
-        function loadWaiterTables() {
-            const container = document.getElementById('tablesGridWaiter');
-            if (!container) return;
-            
-            let html = '';
-            
-            restaurantOS.tables.forEach(table => {
-                const tableOrders = restaurantOS.orders.filter(order => 
-                    order.tableId === table.id && 
-                    ['pending', 'preparing', 'ready'].includes(order.status)
-                );
-                
-                const orderCount = tableOrders.length;
-                const statusClass = table.status;
-                
-                let timerHtml = '';
-                if (table.lastUsed) {
-                    const lastUsed = new Date(table.lastUsed);
-                    const now = new Date();
-                    const minutes = Math.floor((now - lastUsed) / 60000);
-                    timerHtml = `<div class="table-timer">${minutes} min</div>`;
-                }
-                
-                html += `
-                    <div class="table-card-waiter ${statusClass}" onclick="openWaiterMenu(${table.id})">
-                        ${orderCount > 0 ? `<div class="table-orders-count">${orderCount}</div>` : ''}
-                        <div class="table-icon-waiter ${statusClass}">
-                            <i class="fas fa-${table.capacity <= 2 ? 'user' : 'users'}"></i>
-                        </div>
-                        <div class="h4 mb-2">Table ${table.number}</div>
-                        <div class="mb-2">
-                            <span class="badge bg-secondary">${table.capacity} seats</span>
-                            <span class="badge bg-light text-dark">${table.location}</span>
-                        </div>
-                        <div class="badge bg-${getTableStatusColor(table.status)} mb-2">
-                            ${table.status.toUpperCase()}
-                        </div>
-                        ${timerHtml}
-                        ${table.status === 'occupied' ? '<div class="text-danger mt-2"><i class="fas fa-clock"></i> Order Active</div>' : ''}
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
-        }
-
-        function openWaiterMenu(tableId) {
-            const table = restaurantOS.tables.find(t => t.id === tableId);
-            if (!table) return;
-            
-            // Reset current order
-            restaurantOS.currentOrder = {
-                tableId: tableId,
-                items: [],
-                notes: "",
-                modifications: {},
-                waiterId: 1,
-                status: "pending",
-                createdAt: null
-            };
-            
-            // Update modal title
-            document.getElementById('modalTableTitle').textContent = 
-                `Table ${table.number} - ${table.capacity} seats`;
-            
-            // Load menu categories and items
-            loadWaiterCategories();
-            loadWaiterMenuItems();
-            updateWaiterCart();
-            
-            // Show modal
-            document.getElementById('waiterMenuModal').classList.add('active');
-        }
-
-        function loadWaiterCategories() {
-            const container = document.getElementById('waiterCategories');
-            if (!container) return;
-            
-            const categories = [...new Set(restaurantOS.menu.map(item => item.category))];
-            
-            let html = '';
-            categories.forEach((category, index) => {
-                const icon = getCategoryIcon(category);
-                html += `
-                    <button class="category-btn ${index === 0 ? 'active' : ''}" 
-                            onclick="filterWaiterMenu('${category}')">
-                        <i class="fas fa-${icon}"></i>
-                        ${category}
-                    </button>
-                `;
-            });
-            
-            container.innerHTML = html;
-        }
-
-        function getCategoryIcon(category) {
-            const icons = {
-                'Appetizers': 'utensils',
-                'Main Course': 'drumstick-bite',
-                'Pizza': 'pizza-slice',
-                'Burgers': 'hamburger',
-                'Salads': 'leaf',
-                'Desserts': 'ice-cream',
-                'Drinks': 'glass-martini',
-                'Specials': 'star'
-            };
-            return icons[category] || 'utensils';
-        }
-
-        function loadWaiterMenuItems(category = 'Appetizers') {
-            const container = document.getElementById('waiterMenuItems');
-            if (!container) return;
-            
-            const items = restaurantOS.menu.filter(item => 
-                item.category === category && item.available
-            );
-            
-            if (items.length === 0) {
-                container.innerHTML = `
-                    <div class="col-12 text-center py-5">
-                        <i class="fas fa-utensils fa-3x text-muted mb-3"></i>
-                        <p class="text-muted">No items in this category</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            let html = '';
-            items.forEach(item => {
-                html += `
-                    <div class="col-md-4 mb-4">
-                        <div class="menu-item-waiter" onclick="addToWaiterCart(${item.id})">
-                            <div class="d-flex justify-content-between align-items-start mb-3">
-                                <div>
-                                    <h5 class="mb-1">${item.name}</h5>
-                                    <small class="text-muted">${item.category}</small>
-                                </div>
-                                <div class="text-end">
-                                    <div class="h5 text-primary mb-1">$${item.price.toFixed(2)}</div>
-                                    <small class="text-info">
-                                        <i class="fas fa-clock me-1"></i>${item.prepTime} min
-                                    </small>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-success">
-                                    <i class="fas fa-plus-circle me-1"></i> Click to add
-                                </small>
-                                <span class="badge bg-success">Available</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
-        }
-
-        function filterWaiterMenu(category) {
-            // Update active category button
-            document.querySelectorAll('.category-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            // Load items for selected category
-            loadWaiterMenuItems(category);
-        }
-
-        function addToWaiterCart(itemId) {
-            const item = restaurantOS.menu.find(m => m.id === itemId);
-            if (!item) return;
-            
-            // Visual feedback
-            const menuCard = event.target.closest('.menu-item-waiter');
-            menuCard.classList.add('animate__animated', 'animate__pulse');
-            setTimeout(() => {
-                menuCard.classList.remove('animate__animated', 'animate__pulse');
-            }, 500);
-            
-            // Check if item already in cart
-            const existingItem = restaurantOS.currentOrder.items.find(i => i.id === itemId);
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                restaurantOS.currentOrder.items.push({
-                    id: item.id,
-                    name: item.name,
-                    price: item.price,
-                    quantity: 1,
-                    category: item.category,
-                    prepTime: item.prepTime
-                });
-            }
-            
-            updateWaiterCart();
-            showToast(`${item.name} added to order`, 'success');
-        }
-
-        function updateWaiterCart() {
-            const container = document.getElementById('waiterCartItems');
-            const subtotalEl = document.getElementById('cartSubtotal');
-            const taxEl = document.getElementById('cartTax');
-            const totalEl = document.getElementById('cartTotal');
-            
-            if (restaurantOS.currentOrder.items.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center text-muted py-5">
-                        <i class="fas fa-shopping-cart fa-3x mb-3"></i>
-                        <p>No items in cart</p>
-                        <small>Click menu items to add them</small>
-                    </div>
-                `;
-                updateCartTotals(0);
-                return;
-            }
-            
-            let html = '';
-            restaurantOS.currentOrder.items.forEach((item, index) => {
-                const itemTotal = item.price * item.quantity;
-                const modification = restaurantOS.currentOrder.modifications[item.name];
-                
-                html += `
-                    <div class="cart-item">
-                        <div class="d-flex justify-content-between align-items-start">
-                            <div>
-                                <h6 class="mb-1">${item.name}</h6>
-                                <small class="text-muted">$${item.price.toFixed(2)} each</small>
-                                ${modification ? `
-                                    <div class="text-warning mt-1">
-                                        <small><i class="fas fa-exclamation-circle"></i> ${modification}</small>
-                                    </div>
-                                ` : ''}
-                            </div>
-                            <div class="text-end">
-                                <div class="h6 mb-1">$${itemTotal.toFixed(2)}</div>
-                                <div class="quantity-controls">
-                                    <button class="qty-btn" onclick="updateCartQuantity(${index}, -1)">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <span class="qty-value">${item.quantity}</span>
-                                    <button class="qty-btn" onclick="updateCartQuantity(${index}, 1)">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                    <button class="qty-btn btn-danger" onclick="removeCartItem(${index})">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
-            
-            const subtotal = restaurantOS.currentOrder.items.reduce((sum, item) => 
-                sum + (item.price * item.quantity), 0
-            );
-            updateCartTotals(subtotal);
-        }
-
-        function updateCartQuantity(index, change) {
-            if (!restaurantOS.currentOrder.items[index]) return;
-            
-            restaurantOS.currentOrder.items[index].quantity += change;
-            
-            if (restaurantOS.currentOrder.items[index].quantity <= 0) {
-                restaurantOS.currentOrder.items.splice(index, 1);
-            }
-            
-            updateWaiterCart();
-        }
-
-        function removeCartItem(index) {
-            const itemName = restaurantOS.currentOrder.items[index].name;
-            restaurantOS.currentOrder.items.splice(index, 1);
-            updateWaiterCart();
-            showToast(`${itemName} removed from cart`, 'warning');
-        }
-
-        function updateCartTotals(subtotal) {
-            const tax = subtotal * restaurantOS.settings.taxRate;
-            const total = subtotal + tax;
-            
-            document.getElementById('cartSubtotal').textContent = `$${subtotal.toFixed(2)}`;
-            document.getElementById('cartTax').textContent = `$${tax.toFixed(2)}`;
-            document.getElementById('cartTotal').textContent = `$${total.toFixed(2)}`;
-        }
-
-        function addModification() {
-            const modal = document.getElementById('modificationModal');
-            const select = document.getElementById('modificationItem');
-            
-            // Populate items
-            select.innerHTML = '';
-            restaurantOS.currentOrder.items.forEach(item => {
-                const option = document.createElement('option');
-                option.value = item.name;
-                option.textContent = `${item.name} (${item.quantity}x)`;
-                select.appendChild(option);
-            });
-            
-            modal.classList.add('active');
-        }
-
-        function saveModification() {
-            const itemName = document.getElementById('modificationItem').value;
-            const text = document.getElementById('modificationText').value;
-            
-            if (itemName && text) {
-                restaurantOS.currentOrder.modifications[itemName] = text;
-                updateWaiterCart();
-                closeModificationModal();
-                showToast('Special instructions added', 'success');
-            }
-        }
-
-        function closeModificationModal() {
-            document.getElementById('modificationModal').classList.remove('active');
-            document.getElementById('modificationText').value = '';
-        }
-
-        function sendToKitchen() {
-            if (restaurantOS.currentOrder.items.length === 0) {
-                showToast('Please add items to the order', 'error');
-                return;
-            }
-            
-            // Generate order number
-            const orderId = restaurantOS.orders.length + 1;
-            const orderNumber = `ORD-${1000 + orderId}`;
-            
-            // Calculate totals
-            const subtotal = restaurantOS.currentOrder.items.reduce((sum, item) => 
-                sum + (item.price * item.quantity), 0
-            );
-            const tax = subtotal * restaurantOS.settings.taxRate;
-            const total = subtotal + tax;
-            
-            // Create order
-            const newOrder = {
-                id: orderId,
-                orderNumber: orderNumber,
-                tableId: restaurantOS.currentOrder.tableId,
-                items: JSON.parse(JSON.stringify(restaurantOS.currentOrder.items)),
-                modifications: JSON.parse(JSON.stringify(restaurantOS.currentOrder.modifications)),
-                notes: document.getElementById('orderNotes').value,
-                subtotal: subtotal,
-                tax: tax,
-                total: total,
-                status: 'pending',
-                waiterId: restaurantOS.currentOrder.waiterId,
-                createdAt: new Date().toISOString(),
-                kitchenReceived: new Date().toISOString()
-            };
-            
-            // Add to orders
-            restaurantOS.orders.push(newOrder);
-            restaurantOS.kitchenOrders.push(newOrder);
-            
-            // Update table status
-            const table = restaurantOS.tables.find(t => t.id === restaurantOS.currentOrder.tableId);
-            if (table) {
-                table.status = 'occupied';
-                table.lastUsed = new Date().toISOString();
-                table.currentOrder = orderId;
-            }
-            
-            // Update statistics
-            updateStatistics();
-            
-            // Clear current order
-            restaurantOS.currentOrder = {
-                tableId: null,
-                items: [],
-                notes: "",
-                modifications: {},
-                waiterId: 1,
-                status: "pending",
-                createdAt: null
-            };
-            
-            // Close modal
-            closeWaiterMenu();
-            
-            // Trigger kitchen alarm
-            triggerKitchenAlarm();
-            
-            // Update displays
-            updateAllDisplays();
-            
-            // Show success message
-            Swal.fire({
-                title: 'Order Sent to Kitchen!',
-                html: `
-                    <div class="text-center">
-                        <i class="fas fa-paper-plane fa-3x text-success mb-3"></i>
-                        <h5>Order #${orderNumber}</h5>
-                        <p>Table: <strong>${table.number}</strong></p>
-                        <p>Items: <strong>${newOrder.items.length}</strong></p>
-                        <p>Total: <strong>$${total.toFixed(2)}</strong></p>
-                        <div class="mt-3">
-                            <div class="alert alert-warning">
-                                <i class="fas fa-bell"></i> Kitchen notified with alarm!
-                            </div>
-                        </div>
-                    </div>
-                `,
-                confirmButtonText: 'OK',
-                confirmButtonColor: '#28a745'
-            });
-        }
-
-        function triggerKitchenAlarm() {
-            if (restaurantOS.settings.autoKitchenAlarm) {
-                // Show visual alert
-                const alert = document.getElementById('kitchenAlert');
-                alert.classList.add('active');
-                
-                // Play sound
-                const alarm = document.getElementById('kitchenAlarm');
-                alarm.currentTime = 0;
-                alarm.play().catch(e => console.log('Audio play failed:', e));
-                
-                // Ring notification bell
-                const bell = document.getElementById('notificationBell');
-                bell.classList.add('active');
-                
-                // Auto-hide after 5 seconds
-                setTimeout(() => {
-                    alert.classList.remove('active');
-                    bell.classList.remove('active');
-                }, 5000);
-                
-                // Create confetti
-                createConfetti();
-            }
-        }
-
-        function createConfetti() {
-            const container = document.getElementById('confettiContainer');
-            const colors = ['#4361ee', '#4cc9f0', '#f72585', '#f8961e', '#7209b7'];
-            
-            for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.className = 'confetti';
-                confetti.style.left = Math.random() * 100 + 'vw';
-                confetti.style.width = Math.random() * 10 + 5 + 'px';
-                confetti.style.height = Math.random() * 10 + 5 + 'px';
-                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
-                confetti.style.animationDelay = Math.random() * 1 + 's';
-                
-                container.appendChild(confetti);
-                
-                // Remove after animation
-                setTimeout(() => {
-                    confetti.remove();
-                }, 6000);
-            }
-        }
-
-        function clearCart() {
-            if (restaurantOS.currentOrder.items.length === 0) {
-                showToast('Cart is already empty', 'info');
-                return;
-            }
-            
-            Swal.fire({
-                title: 'Clear Cart?',
-                text: 'This will remove all items from the current order',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, clear it!',
-                cancelButtonText: 'Cancel',
-                confirmButtonColor: '#d33'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    restaurantOS.currentOrder.items = [];
-                    restaurantOS.currentOrder.modifications = {};
-                    updateWaiterCart();
-                    showToast('Cart cleared', 'success');
+            // Initialize DataTables
+            $('.table').DataTable({
+                pageLength: 10,
+                responsive: true,
+                language: {
+                    search: "Search:",
+                    lengthMenu: "Show _MENU_ entries"
                 }
             });
-        }
-
-        function closeWaiterMenu() {
-            document.getElementById('waiterMenuModal').classList.remove('active');
-            document.getElementById('orderNotes').value = '';
-        }
-
-        // ========== KITCHEN DISPLAY FUNCTIONS ==========
-        function showKitchenDisplay() {
-            showSection('kitchen');
-            loadKitchenOrders();
-            updateKitchenStats();
-        }
-
-        function loadKitchenOrders() {
-            const container = document.getElementById('kitchenOrdersGrid');
-            if (!container) return;
             
-            // Filter orders for kitchen
-            const kitchenOrders = restaurantOS.orders.filter(order => 
-                ['pending', 'preparing'].includes(order.status)
-            );
+            // Initialize Select2
+            $('.form-select').select2();
             
-            if (kitchenOrders.length === 0) {
-                container.innerHTML = `
-                    <div class="col-12 text-center py-5">
-                        <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
-                        <h4>No Pending Orders</h4>
-                        <p class="text-muted">All orders are complete</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            let html = '';
-            kitchenOrders.forEach(order => {
-                const table = restaurantOS.tables.find(t => t.id === order.tableId);
-                const time = new Date(order.createdAt);
-                const now = new Date();
-                const minutes = Math.floor((now - time) / 60000);
-                
-                let itemsHtml = '';
-                order.items.forEach(item => {
-                    const modification = order.modifications?.[item.name];
-                    itemsHtml += `
-                        <div class="kds-item">
-                            <div class="d-flex justify-content-between">
-                                <strong>${item.quantity}x ${item.name}</strong>
-                                <span>$${(item.price * item.quantity).toFixed(2)}</span>
-                            </div>
-                            ${modification ? `
-                                <div class="kds-modification">
-                                    <i class="fas fa-exclamation-circle me-1"></i> ${modification}
-                                </div>
-                            ` : ''}
-                        </div>
-                    `;
-                });
-                
-                html += `
-                    <div class="kds-order-card ${order.status}">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
-                            <div>
-                                <h4 class="mb-1">${order.orderNumber}</h4>
-                                <div class="d-flex align-items-center gap-2">
-                                    <span class="badge bg-primary">Table ${table?.number || 'N/A'}</span>
-                                    <span class="badge bg-secondary">${table?.capacity || 0} seats</span>
-                                </div>
-                            </div>
-                            <div class="kds-timer">${minutes}m ago</div>
-                        </div>
-                        
-                        ${order.notes ? `
-                            <div class="alert alert-warning mb-3 py-2">
-                                <i class="fas fa-sticky-note me-2"></i> ${order.notes}
-                            </div>
-                        ` : ''}
-                        
-                        <div class="kds-items-list">
-                            ${itemsHtml}
-                        </div>
-                        
-                        <div class="d-flex justify-content-between align-items-center mt-3 pt-3 border-top">
-                            <div>
-                                <small class="text-muted">Waiter ID: ${order.waiterId}</small>
-                                <br>
-                                <small class="text-muted">${time.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</small>
-                            </div>
-                            <div class="btn-group">
-                                <button class="btn btn-sm btn-success" onclick="updateOrderStatus(${order.id}, 'preparing')"
-                                        ${order.status === 'preparing' ? 'disabled' : ''}>
-                                    <i class="fas fa-play"></i> Start
-                                </button>
-                                <button class="btn btn-sm btn-primary" onclick="updateOrderStatus(${order.id}, 'ready')">
-                                    <i class="fas fa-check"></i> Ready
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
+            // Initialize Datepicker
+            $('.date-picker input').datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true
             });
             
-            container.innerHTML = html;
-        }
-
-        function updateOrderStatus(orderId, status) {
-            const order = restaurantOS.orders.find(o => o.id === orderId);
-            if (!order) return;
-            
-            order.status = status;
-            
-            // Update kitchen display
-            loadKitchenOrders();
-            updateKitchenStats();
-            
-            // If order is ready, notify waiter
-            if (status === 'ready') {
-                showToast(`Order ${order.orderNumber} is ready for serving`, 'success');
-                
-                // Update active orders in waiter mode
-                loadActiveOrders();
-            }
-            
-            // Update statistics
-            updateStatistics();
-        }
-
-        function updateKitchenStats() {
-            const pending = restaurantOS.orders.filter(o => o.status === 'pending').length;
-            const preparing = restaurantOS.orders.filter(o => o.status === 'preparing').length;
-            const ready = restaurantOS.orders.filter(o => o.status === 'ready').length;
-            
-            document.getElementById('kitchenPending').textContent = pending;
-            document.getElementById('kitchenPreparing').textContent = preparing;
-            document.getElementById('kitchenReady').textContent = ready;
-            
-            // Update sidebar badge
-            document.getElementById('kitchenBadge').textContent = pending;
-        }
-
-        function clearKitchenAlerts() {
-            const alarm = document.getElementById('kitchenAlarm');
-            alarm.pause();
-            alarm.currentTime = 0;
-            
-            const alert = document.getElementById('kitchenAlert');
-            alert.classList.remove('active');
-            
-            showToast('Kitchen alerts silenced', 'info');
-        }
-
-        // ========== SALES ANALYTICS FUNCTIONS ==========
-        function showSalesAnalytics() {
-            showSection('sales');
-            loadSalesData();
-            updateSalesCharts();
-        }
-
-        function loadSalesData() {
-            // Calculate sales data
-            const today = new Date();
-            const todayString = today.toISOString().split('T')[0];
-            
-            const todaySales = restaurantOS.orders.filter(order => 
-                new Date(order.createdAt).toISOString().split('T')[0] === todayString
-            );
-            
-            const totalRevenue = restaurantOS.orders.reduce((sum, order) => sum + order.total, 0);
-            const avgOrderValue = restaurantOS.orders.length > 0 ? 
-                totalRevenue / restaurantOS.orders.length : 0;
-            
-            // Update metrics
-            document.getElementById('totalRevenue').textContent = `$${totalRevenue.toFixed(2)}`;
-            document.getElementById('totalOrders').textContent = restaurantOS.orders.length;
-            document.getElementById('avgOrderValue').textContent = `$${avgOrderValue.toFixed(2)}`;
-            document.getElementById('totalSettlements').textContent = todaySales.length;
-            
-            // Load settlement timeline
-            loadSettlementTimeline();
-        }
-
-        function loadSettlementTimeline() {
-            const container = document.getElementById('settlementTimeline');
-            if (!container) return;
-            
-            const recentOrders = [...restaurantOS.orders]
-                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-                .slice(0, 10);
-            
-            if (recentOrders.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-4">
-                        <i class="fas fa-receipt fa-3x text-muted mb-3"></i>
-                        <p class="text-muted">No settlement history</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            let html = '';
-            recentOrders.forEach(order => {
-                const time = new Date(order.createdAt);
-                const table = restaurantOS.tables.find(t => t.id === order.tableId);
-                
-                html += `
-                    <div class="timeline-item">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <h6 class="mb-1">${order.orderNumber}</h6>
-                                <p class="mb-1">Table ${table?.number || 'N/A'} • ${order.items.length} items</p>
-                                <small class="text-muted">${time.toLocaleString()}</small>
-                            </div>
-                            <div class="text-end">
-                                <div class="h5 text-primary mb-1">$${order.total.toFixed(2)}</div>
-                                <span class="status-badge ${getStatusClass(order.status)}">
-                                    ${order.status}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                `;
+            // Initialize Timepicker
+            $('.time-picker input').timepicker({
+                showMeridian: false,
+                minuteStep: 15
             });
             
-            container.innerHTML = html;
-        }
-
-        function updateSalesCharts() {
-            // Annual Sales Chart
-            const annualCtx = document.getElementById('annualSalesChart')?.getContext('2d');
-            if (annualCtx) {
-                new Chart(annualCtx, {
-                    type: 'line',
-                    data: {
-                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-                        datasets: [{
-                            label: 'Monthly Revenue',
-                            data: [12000, 19000, 15000, 25000, 22000, 30000, 28000, 32000, 30000, 35000, 40000, 45000],
-                            borderColor: '#4361ee',
-                            backgroundColor: 'rgba(67, 97, 238, 0.1)',
-                            borderWidth: 3,
-                            tension: 0.4,
-                            fill: true
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                display: false
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    callback: function(value) {
-                                        return '$' + value.toLocaleString();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-            
-            // Revenue Breakdown Chart
-            const breakdownCtx = document.getElementById('revenueBreakdownChart')?.getContext('2d');
-            if (breakdownCtx) {
-                new Chart(breakdownCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Food', 'Drinks', 'Desserts', 'Others'],
-                        datasets: [{
-                            data: [65, 20, 10, 5],
-                            backgroundColor: ['#4361ee', '#4cc9f0', '#f72585', '#f8961e'],
-                            borderWidth: 2,
-                            borderColor: '#ffffff'
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'bottom'
-                            }
-                        }
-                    }
-                });
-            }
-        }
-
-        function setTimeFilter(filter) {
-            // Update active filter button
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
-            // Update charts based on filter
-            showToast(`Showing data for: ${filter}`, 'info');
-        }
-
-        // ========== UTILITY FUNCTIONS ==========
-        function getTableStatusColor(status) {
-            const colors = {
-                'available': 'success',
-                'occupied': 'danger',
-                'reserved': 'warning',
-                'maintenance': 'secondary'
-            };
-            return colors[status] || 'dark';
-        }
-
-        function getStatusClass(status) {
-            const classes = {
-                'pending': 'status-pending',
-                'preparing': 'status-preparing',
-                'ready': 'status-ready',
-                'served': 'status-served',
-                'completed': 'status-completed',
-                'cancelled': 'status-cancelled'
-            };
-            return classes[status] || 'status-pending';
-        }
-
-        function showSection(sectionName) {
-            // Hide all sections
-            document.querySelectorAll('.section-content').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Remove active class from all nav links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            // Show selected section
-            const sectionElement = document.getElementById(sectionName + 'Section');
-            if (sectionElement) {
-                sectionElement.classList.add('active');
-                
-                // Update nav link
-                const navLink = document.querySelector(`.nav-link[data-section="${sectionName}"]`);
-                if (navLink) navLink.classList.add('active');
-                
-                // Update title
-                const titles = {
-                    'dashboard': 'Dashboard',
-                    'waiter': 'Waiter Mode',
-                    'kitchen': 'Kitchen Display',
-                    'sales': 'Sales Analytics',
-                    'pos': 'POS System',
-                    'tables': 'Table Management',
-                    'orders': 'Order Management',
-                    'reports': 'Reports',
-                    'customers': 'Customer Management',
-                    'menu': 'Menu Management',
-                    'inventory': 'Inventory Management',
-                    'staff': 'Staff Management'
-                };
-                document.getElementById('sectionTitle').innerHTML = `
-                    <span class="text-gradient">${titles[sectionName] || sectionName}</span>
-                `;
-                document.getElementById('breadcrumb').textContent = 
-                    `Overview / ${titles[sectionName] || sectionName}`;
-            }
-        }
-
-        function updateSystemClock() {
-            const now = new Date();
-            const timeString = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'});
-            const dateString = now.toLocaleDateString([], {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'});
-            
-            document.getElementById('systemTime').textContent = timeString;
-            document.getElementById('currentDate').textContent = dateString;
-        }
-
-        function updateStatistics() {
-            const today = new Date();
-            const todayString = today.toISOString().split('T')[0];
-            
-            // Calculate today's stats
-            const todayOrders = restaurantOS.orders.filter(order => 
-                new Date(order.createdAt).toISOString().split('T')[0] === todayString
-            );
-            
-            const todayRevenue = todayOrders.reduce((sum, order) => sum + order.total, 0);
-            const occupiedTables = restaurantOS.tables.filter(t => t.status === 'occupied').length;
-            
-            // Update header stats
-            document.getElementById('todayRevenue').textContent = `$${todayRevenue.toFixed(2)}`;
-            document.getElementById('todayOrders').textContent = todayOrders.length;
-            document.getElementById('activeTables').textContent = `${occupiedTables}/${restaurantOS.tables.length}`;
-            
-            // Calculate average wait time (simplified)
-            const avgWaitTime = restaurantOS.orders.length > 0 ? 
-                restaurantOS.orders.reduce((sum, order) => {
-                    const created = new Date(order.createdAt);
-                    const now = new Date();
-                    return sum + Math.floor((now - created) / 60000);
-                }, 0) / restaurantOS.orders.length : 0;
-            
-            document.getElementById('avgWaitTime').textContent = `${Math.round(avgWaitTime)}m`;
-        }
-
-        function updateAllDisplays() {
-            updateStatistics();
-            
-            // Update specific sections if they're active
-            if (document.getElementById('waiterSection')?.classList.contains('active')) {
-                loadWaiterTables();
-                loadActiveOrders();
-            }
-            
-            if (document.getElementById('kitchenSection')?.classList.contains('active')) {
-                loadKitchenOrders();
-                updateKitchenStats();
-            }
-            
-            if (document.getElementById('salesSection')?.classList.contains('active')) {
-                loadSalesData();
-            }
-        }
-
-        function loadActiveOrders() {
-            const container = document.getElementById('activeOrdersBody');
-            if (!container) return;
-            
-            const activeOrders = restaurantOS.orders.filter(order => 
-                ['pending', 'preparing', 'ready'].includes(order.status)
-            );
-            
-            if (activeOrders.length === 0) {
-                container.innerHTML = `
-                    <tr>
-                        <td colspan="7" class="text-center py-4">
-                            <i class="fas fa-check-circle fa-2x text-success mb-3"></i>
-                            <p class="text-muted">No active orders</p>
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-            
-            let html = '';
-            activeOrders.forEach(order => {
-                const table = restaurantOS.tables.find(t => t.id === order.tableId);
-                const time = new Date(order.createdAt);
-                const now = new Date();
-                const minutes = Math.floor((now - time) / 60000);
-                
-                html += `
-                    <tr>
-                        <td>
-                            <strong>Table ${table?.number || 'N/A'}</strong>
-                        </td>
-                        <td>${order.orderNumber}</td>
-                        <td>${order.items.length} items</td>
-                        <td>${minutes}m ago</td>
-                        <td>
-                            <span class="status-badge ${getStatusClass(order.status)}">
-                                ${order.status}
-                            </span>
-                        </td>
-                        <td>Waiter ${order.waiterId}</td>
-                        <td>
-                            <div class="btn-group btn-group-sm">
-                                <button class="btn btn-info" onclick="viewOrder(${order.id})">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="btn btn-warning" onclick="updateOrderStatus(${order.id}, 'ready')">
-                                    <i class="fas fa-check"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-            });
-            
-            container.innerHTML = html;
-        }
-
-        function saveToStorage() {
-            localStorage.setItem('restaurantOSData', JSON.stringify(restaurantOS));
-            console.log('Data saved to localStorage');
-        }
-
-        function showToast(message, type = 'info') {
-            const container = document.getElementById('toastContainer');
-            if (!container) return;
-            
-            const toast = document.createElement('div');
-            toast.className = `custom-toast toast-${type} animate__animated animate__slideInRight`;
-            
-            const icons = {
-                success: 'fa-check-circle',
-                error: 'fa-times-circle',
-                warning: 'fa-exclamation-triangle',
-                info: 'fa-info-circle'
-            };
-            
-            toast.innerHTML = `
-                <div class="toast-icon">
-                    <i class="fas ${icons[type]}"></i>
-                </div>
-                <div class="flex-grow-1">
-                    <strong>${type.charAt(0).toUpperCase() + type.slice(1)}</strong>
-                    <div class="small">${message}</div>
-                </div>
-                <button type="button" class="btn-close btn-close-white" onclick="this.parentElement.remove()"></button>
-            `;
-            
-            container.appendChild(toast);
-            
-            // Auto-remove after 5 seconds
-            setTimeout(() => {
-                if (toast.parentElement) {
-                    toast.classList.add('animate__slideOutRight');
-                    setTimeout(() => toast.remove(), 300);
+            // Sidebar Toggle
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('collapsed');
+                const icon = this.querySelector('i');
+                if (sidebar.classList.contains('collapsed')) {
+                    icon.classList.remove('fa-chevron-left');
+                    icon.classList.add('fa-chevron-right');
+                } else {
+                    icon.classList.remove('fa-chevron-right');
+                    icon.classList.add('fa-chevron-left');
                 }
-            }, 5000);
-        }
-
-        function quickAction(action) {
-            switch(action) {
-                case 'newOrder':
-                    showSection('waiter');
-                    break;
-                case 'quickPayment':
-                    showToast('Quick payment feature coming soon!', 'info');
-                    break;
-                case 'printReport':
-                    window.print();
-                    break;
+            });
+            
+            // Theme Toggle
+            themeToggle.addEventListener('change', function() {
+                if (this.checked) {
+                    document.body.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.body.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+            
+            // Load saved theme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                themeToggle.checked = true;
+                document.body.setAttribute('data-theme', 'dark');
             }
-        }
-
-        function toggleWaiterView() {
-            const tablesGrid = document.getElementById('tablesGridWaiter');
-            tablesGrid.classList.toggle('tables-grid-waiter');
-            tablesGrid.classList.toggle('tables-grid-waiter-expanded');
             
-            if (tablesGrid.classList.contains('tables-grid-waiter-expanded')) {
-                showToast('Full view enabled', 'info');
-            }
-        }
-
-        function refreshTables() {
-            loadWaiterTables();
-            showToast('Tables refreshed', 'success');
-        }
-
-        function checkNewOrders() {
-            // Check for new orders and update notifications
-            const pendingOrders = restaurantOS.orders.filter(o => o.status === 'pending').length;
-            const notificationCount = pendingOrders;
-            
-            document.getElementById('notificationCount').textContent = notificationCount;
-            document.getElementById('ordersBadge').textContent = restaurantOS.orders.length;
-            document.getElementById('waiterBadge').textContent = pendingOrders > 0 ? '!' : '';
-            
-            // Update kitchen badge
-            updateKitchenStats();
-        }
-
-        function setupEventListeners() {
-            // Navigation links
-            document.querySelectorAll('.nav-link').forEach(link => {
+            // Navigation
+            navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    const section = this.getAttribute('data-section');
+                    const pageId = this.getAttribute('data-page');
                     
-                    if (section === 'waiter') {
-                        showWaiterMode();
-                    } else if (section === 'kitchen') {
-                        showKitchenDisplay();
-                    } else if (section === 'sales') {
-                        showSalesAnalytics();
-                    } else {
-                        showSection(section);
-                    }
+                    // Update active nav link
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
                     
-                    // Close mobile sidebar if open
-                    if (window.innerWidth <= 768) {
-                        document.getElementById('sidebar').classList.remove('active');
+                    // Update page title
+                    const pageTitle = document.querySelector('.page-title');
+                    pageTitle.textContent = this.querySelector('.nav-text').textContent;
+                    
+                    // Show selected page
+                    pageContents.forEach(page => page.classList.remove('active'));
+                    document.getElementById(pageId).classList.add('active');
+                    
+                    // Load page specific content
+                    loadPageContent(pageId);
+                    
+                    // Close sidebar on mobile
+                    if (window.innerWidth < 768) {
+                        sidebar.classList.remove('active');
                     }
                 });
             });
             
-            // Mobile menu button
-            document.getElementById('mobileMenuBtn').addEventListener('click', function() {
-                document.getElementById('sidebar').classList.toggle('active');
+            // Modal Controls
+            closeModal.addEventListener('click', () => {
+                tableModal.classList.remove('active');
             });
             
-            // Dark mode toggle
-            document.getElementById('modeToggle').addEventListener('change', function() {
-                document.body.classList.toggle('dark-mode');
-                restaurantOS.settings.darkMode = this.checked;
-                saveToStorage();
-                showToast(`Dark mode ${this.checked ? 'enabled' : 'disabled'}`, 'info');
+            cancelModal.addEventListener('click', () => {
+                tableModal.classList.remove('active');
             });
             
-            // Close sidebar when clicking outside on mobile
-            document.addEventListener('click', function(event) {
-                const sidebar = document.getElementById('sidebar');
-                const mobileBtn = document.getElementById('mobileMenuBtn');
-                
-                if (window.innerWidth <= 768 && 
-                    sidebar.classList.contains('active') &&
-                    !sidebar.contains(event.target) &&
-                    !mobileBtn.contains(event.target)) {
-                    sidebar.classList.remove('active');
+            // Close modal on outside click
+            tableModal.addEventListener('click', (e) => {
+                if (e.target === tableModal) {
+                    tableModal.classList.remove('active');
                 }
             });
-        }
-
-        // Initialize charts
-        let kitchenChart = null;
-        function initializeKitchenChart() {
-            const ctx = document.getElementById('kitchenPerformanceChart')?.getContext('2d');
-            if (ctx) {
-                kitchenChart = new Chart(ctx, {
-                    type: 'bar',
+            
+            // Search Functionality
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                // Implement search functionality based on current page
+                filterContent(searchTerm);
+            });
+            
+            // Notification Button
+            notificationBtn.addEventListener('click', function() {
+                showToast('You have 5 new notifications', 'info');
+            });
+            
+            // Fullscreen Toggle
+            fullscreenBtn.addEventListener('click', function() {
+                toggleFullscreen();
+            });
+            
+            // Initialize Charts
+            function initCharts() {
+                // Revenue Chart
+                const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+                revenueChart = new Chart(revenueCtx, {
+                    type: 'line',
                     data: {
-                        labels: ['6 AM', '9 AM', '12 PM', '3 PM', '6 PM', '9 PM'],
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
                         datasets: [{
-                            label: 'Orders',
-                            data: [12, 28, 45, 32, 38, 22],
-                            backgroundColor: 'rgba(220, 53, 69, 0.7)',
-                            borderColor: '#dc3545',
-                            borderWidth: 1
+                            label: 'Revenue ($)',
+                            data: [1200, 1900, 1500, 2500, 2200, 3000, 2800],
+                            borderColor: '#4361ee',
+                            backgroundColor: 'rgba(67, 97, 238, 0.1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4
                         }]
                     },
                     options: {
@@ -3377,152 +1187,231 @@
                         scales: {
                             y: {
                                 beginAtZero: true,
-                                ticks: {
-                                    color: 'white'
-                                },
                                 grid: {
-                                    color: 'rgba(255,255,255,0.1)'
+                                    drawBorder: false
                                 }
                             },
                             x: {
-                                ticks: {
-                                    color: 'white'
-                                },
                                 grid: {
-                                    color: 'rgba(255,255,255,0.1)'
+                                    display: false
                                 }
                             }
                         }
                     }
                 });
             }
-        }
-
-        // Initialize on page load
-        setTimeout(initializeKitchenChart, 1000);
-
-        // Export system data
-        function exportSystemData() {
-            const dataStr = JSON.stringify(restaurantOS, null, 2);
-            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
             
-            const exportFileDefaultName = `restaurantos-backup-${new Date().toISOString().split('T')[0]}.json`;
+            // Load Page Content
+            function loadPageContent(pageId) {
+                switch(pageId) {
+                    case 'dashboard':
+                        initCharts();
+                        break;
+                    case 'tables':
+                        loadTables();
+                        break;
+                    case 'orders':
+                        loadOrders();
+                        break;
+                    case 'menu':
+                        loadMenu();
+                        break;
+                    case 'kitchen':
+                        loadKitchenOrders();
+                        break;
+                    case 'inventory':
+                        loadInventory();
+                        break;
+                }
+            }
             
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileDefaultName);
-            linkElement.click();
-            
-            showToast('System data exported successfully!', 'success');
-        }
-
-        // Import system data
-        function importSystemData() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = '.json';
-            
-            input.onchange = e => {
-                const file = e.target.files[0];
-                const reader = new FileReader();
+            // Load Tables
+            function loadTables() {
+                const tablesGrid = document.getElementById('tablesGrid');
+                if (!tablesGrid) return;
                 
-                reader.onload = event => {
-                    try {
-                        const data = JSON.parse(event.target.result);
-                        
-                        Swal.fire({
-                            title: 'Import System Data?',
-                            text: 'This will replace all current data. Are you sure?',
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonText: 'Yes, import',
-                            cancelButtonText: 'Cancel',
-                            confirmButtonColor: '#d33'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                Object.assign(restaurantOS, data);
-                                saveToStorage();
-                                location.reload();
-                            }
-                        });
-                        
-                    } catch (error) {
-                        showToast('Invalid backup file', 'error');
+                const tables = [
+                    { number: 1, capacity: 4, status: 'available', order: null },
+                    { number: 2, capacity: 2, status: 'occupied', order: '#ORD-001' },
+                    { number: 3, capacity: 6, status: 'reserved', reservation: '7:00 PM' },
+                    { number: 4, capacity: 4, status: 'available', order: null },
+                    { number: 5, capacity: 8, status: 'occupied', order: '#ORD-002' },
+                    { number: 6, capacity: 2, status: 'available', order: null },
+                    { number: 7, capacity: 4, status: 'occupied', order: '#ORD-003' },
+                    { number: 8, capacity: 6, status: 'reserved', reservation: '8:30 PM' }
+                ];
+                
+                tablesGrid.innerHTML = tables.map(table => `
+                    <div class="table-card ${table.status}" onclick="openTableModal(${table.number})">
+                        <div class="table-status ${table.status}"></div>
+                        <div class="table-number">${table.number}</div>
+                        <div class="table-info">
+                            <div>Capacity: ${table.capacity} people</div>
+                            <div class="mt-1">
+                                ${table.status === 'occupied' ? 
+                                    `<small>Order: ${table.order}</small>` : 
+                                    table.status === 'reserved' ? 
+                                    `<small>Reserved: ${table.reservation}</small>` : 
+                                    `<small>Available</small>`}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Load Orders
+            function loadOrders() {
+                const ordersGrid = document.getElementById('ordersGrid');
+                if (!ordersGrid) return;
+                
+                const orders = [
+                    { id: 'ORD-001', customer: 'John Smith', table: 'T-05', amount: 124.50, status: 'completed', items: 3 },
+                    { id: 'ORD-002', customer: 'Emma Johnson', table: 'T-12', amount: 89.75, status: 'preparing', items: 2 },
+                    { id: 'ORD-003', customer: 'Michael Brown', table: 'T-08', amount: 156.20, status: 'served', items: 4 },
+                    { id: 'ORD-004', customer: 'Sarah Wilson', table: 'T-03', amount: 67.90, status: 'pending', items: 2 }
+                ];
+                
+                ordersGrid.innerHTML = orders.map(order => `
+                    <div class="col-md-6 mb-3">
+                        <div class="content-card">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h5 class="mb-1">Order #${order.id}</h5>
+                                    <small class="text-muted">Table: ${order.table}</small>
+                                </div>
+                                <span class="badge ${getStatusClass(order.status)}">${order.status}</span>
+                            </div>
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Customer:</span>
+                                    <span>${order.customer}</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-1">
+                                    <span>Amount:</span>
+                                    <span>$${order.amount.toFixed(2)}</span>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span>Items:</span>
+                                    <span>${order.items}</span>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-sm btn-outline w-50" onclick="viewOrder('${order.id}')">
+                                    <i class="fas fa-eye"></i> View
+                                </button>
+                                <button class="btn btn-sm btn-primary w-50" onclick="updateOrderStatus('${order.id}')">
+                                    <i class="fas fa-edit"></i> Update
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            // Load Menu Items
+            function loadMenu() {
+                // Implementation for menu loading
+            }
+            
+            // Load Kitchen Orders
+            function loadKitchenOrders() {
+                // Implementation for kitchen orders
+            }
+            
+            // Load Inventory
+            function loadInventory() {
+                // Implementation for inventory
+            }
+            
+            // Filter Content
+            function filterContent(searchTerm) {
+                const currentPage = document.querySelector('.page-content.active');
+                // Implement search filtering based on current page
+                console.log('Searching for:', searchTerm, 'on page:', currentPage.id);
+            }
+            
+            // Toggle Fullscreen
+            function toggleFullscreen() {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen();
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
                     }
+                }
+            }
+            
+            // Show Toast Notification
+            function showToast(message, type = 'info') {
+                toastr[type](message);
+            }
+            
+            // Get Status CSS Class
+            function getStatusClass(status) {
+                const classes = {
+                    'pending': 'badge-warning',
+                    'preparing': 'badge-primary',
+                    'served': 'badge-info',
+                    'completed': 'badge-success',
+                    'cancelled': 'badge-danger'
                 };
-                
-                reader.readAsText(file);
+                return classes[status] || 'badge-secondary';
+            }
+            
+            // Open Table Modal
+            window.openTableModal = function(tableNumber) {
+                const modalBody = tableModal.querySelector('.modal-body');
+                modalBody.innerHTML = `
+                    <div class="mb-3">
+                        <label class="form-label">Table Number</label>
+                        <input type="text" class="form-control" value="${tableNumber}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Capacity</label>
+                        <input type="number" class="form-control" value="4" min="1" max="20">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Status</label>
+                        <select class="form-select">
+                            <option value="available">Available</option>
+                            <option value="occupied">Occupied</option>
+                            <option value="reserved">Reserved</option>
+                            <option value="maintenance">Maintenance</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Current Order (if occupied)</label>
+                        <input type="text" class="form-control" placeholder="Enter order number">
+                    </div>
+                `;
+                tableModal.classList.add('active');
             };
             
-            input.click();
-        }
-
-        // Reset system
-        function resetSystem() {
-            Swal.fire({
-                title: 'Reset System?',
-                text: 'This will delete all data and restore to default. This cannot be undone!',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, reset',
-                cancelButtonText: 'Cancel',
-                confirmButtonColor: '#d33'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    localStorage.removeItem('restaurantOSData');
-                    location.reload();
-                }
-            });
-        }
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-            // Alt + 1: Waiter Mode
-            if (e.altKey && e.key === '1') {
-                showWaiterMode();
-            }
-            // Alt + 2: Kitchen Display
-            else if (e.altKey && e.key === '2') {
-                showKitchenDisplay();
-            }
-            // Alt + 3: Sales Analytics
-            else if (e.altKey && e.key === '3') {
-                showSalesAnalytics();
-            }
-            // Alt + S: Save
-            else if (e.altKey && e.key === 's') {
-                saveToStorage();
-                showToast('Data saved!', 'success');
-            }
-            // Alt + R: Refresh
-            else if (e.altKey && e.key === 'r') {
-                updateAllDisplays();
-                showToast('All displays refreshed!', 'info');
-            }
+            // View Order Details
+            window.viewOrder = function(orderId) {
+                showToast(`Viewing order ${orderId}`, 'info');
+                // Implement order viewing logic
+            };
+            
+            // Update Order Status
+            window.updateOrderStatus = function(orderId) {
+                showToast(`Updating order ${orderId}`, 'warning');
+                // Implement order status update logic
+            };
+            
+            // Initialize the dashboard
+            initCharts();
+            loadTables();
+            loadOrders();
+            
+            // Initialize Toastr
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "timeOut": "3000"
+            };
         });
-
-        // Make functions available globally
-        window.showSection = showSection;
-        window.openWaiterMenu = openWaiterMenu;
-        window.closeWaiterMenu = closeWaiterMenu;
-        window.addToWaiterCart = addToWaiterCart;
-        window.updateCartQuantity = updateCartQuantity;
-        window.removeCartItem = removeCartItem;
-        window.addModification = addModification;
-        window.saveModification = saveModification;
-        window.closeModificationModal = closeModificationModal;
-        window.sendToKitchen = sendToKitchen;
-        window.clearCart = clearCart;
-        window.updateOrderStatus = updateOrderStatus;
-        window.clearKitchenAlerts = clearKitchenAlerts;
-        window.setTimeFilter = setTimeFilter;
-        window.refreshTables = refreshTables;
-        window.toggleWaiterView = toggleWaiterView;
-        window.quickAction = quickAction;
-        window.exportSystemData = exportSystemData;
-        window.importSystemData = importSystemData;
-        window.resetSystem = resetSystem;
-
     </script>
 </body>
 </html>
